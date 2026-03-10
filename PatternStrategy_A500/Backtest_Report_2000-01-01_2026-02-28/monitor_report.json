@@ -1,0 +1,27 @@
+{
+  "metadata": {
+    "generated_at": "2026-03-03T15:47:38.872570",
+    "monitor_level": "normal",
+    "risk_free_rate": 0.03
+  },
+  "compliance": {
+    "score": 100,
+    "violations_count": 0,
+    "violations": []
+  },
+  "metrics": {
+    "total_return": 0.5540638182799964,
+    "annual_return": 0.016411614446389278,
+    "volatility": 0.10493579542892527,
+    "max_drawdown": -0.24249605708641433,
+    "sharpe_ratio": -0.1294923767249123,
+    "sortino_ratio": -0.2243100481095706,
+    "calmar_ratio": 0.06767786100761605,
+    "information_ratio": 0.0,
+    "treynor_ratio": 0.0,
+    "win_rate": 0.4908424908424908,
+    "profit_factor": 1.065532431877555,
+    "var_95": -0.010453098747269926,
+    "cvar_95": -0.013172569124499012
+  }
+}

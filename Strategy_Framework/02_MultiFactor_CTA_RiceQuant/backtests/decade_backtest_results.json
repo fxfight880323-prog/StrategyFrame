@@ -1,0 +1,177 @@
+{
+  "metadata": {
+    "backtest_period": "2014-01-01 to 2024-01-01",
+    "universe": "hs300",
+    "rebalance_frequency": "monthly",
+    "timestamp": "2026-03-06 17:31:15"
+  },
+  "value_factors": [
+    {
+      "name": "EP",
+      "definition": "净利润 / 市值 = 1/PE",
+      "annualized_return": 0.042848751851528366,
+      "information_ratio": 0.7503002644761684,
+      "sharpe_ratio": 0.7503002644761684,
+      "max_drawdown": -0.051688759368284896,
+      "win_rate": 0.5294117647058824,
+      "t_statistic": 2.426143352281009,
+      "p_value": 0.0167738774340074
+    },
+    {
+      "name": "BP",
+      "definition": "净资产 / 市值 = 1/PB",
+      "annualized_return": 0.042848751851528366,
+      "information_ratio": 0.7503002644761684,
+      "sharpe_ratio": 0.7503002644761684,
+      "max_drawdown": -0.051688759368284896,
+      "win_rate": 0.5294117647058824,
+      "t_statistic": 2.426143352281009,
+      "p_value": 0.0167738774340074
+    },
+    {
+      "name": "SP",
+      "definition": "营业收入 / 市值 = 1/PS",
+      "annualized_return": 0.042848751851528366,
+      "information_ratio": 0.7503002644761684,
+      "sharpe_ratio": 0.7503002644761684,
+      "max_drawdown": -0.051688759368284896,
+      "win_rate": 0.5294117647058824,
+      "t_statistic": 2.426143352281009,
+      "p_value": 0.0167738774340074
+    },
+    {
+      "name": "CFP",
+      "definition": "经营现金流 / 市值",
+      "annualized_return": 0.042848751851528366,
+      "information_ratio": 0.7503002644761684,
+      "sharpe_ratio": 0.7503002644761684,
+      "max_drawdown": -0.051688759368284896,
+      "win_rate": 0.5294117647058824,
+      "t_statistic": 2.426143352281009,
+      "p_value": 0.0167738774340074
+    },
+    {
+      "name": "DP",
+      "definition": "股息率",
+      "annualized_return": 0.042848751851528366,
+      "information_ratio": 0.7503002644761684,
+      "sharpe_ratio": 0.7503002644761684,
+      "max_drawdown": -0.051688759368284896,
+      "win_rate": 0.5294117647058824,
+      "t_statistic": 2.426143352281009,
+      "p_value": 0.0167738774340074
+    },
+    {
+      "name": "EBIT_EV",
+      "definition": "息税前利润 / 企业价值",
+      "annualized_return": 0.042848751851528366,
+      "information_ratio": 0.7503002644761684,
+      "sharpe_ratio": 0.7503002644761684,
+      "max_drawdown": -0.051688759368284896,
+      "win_rate": 0.5294117647058824,
+      "t_statistic": 2.426143352281009,
+      "p_value": 0.0167738774340074
+    },
+    {
+      "name": "Value_Composite_1",
+      "definition": "EP, BP, SP 等权平均",
+      "annualized_return": 0.042848751851528366,
+      "information_ratio": 0.7503002644761684,
+      "sharpe_ratio": 0.7503002644761684,
+      "max_drawdown": -0.051688759368284896,
+      "win_rate": 0.5294117647058824,
+      "t_statistic": 2.426143352281009,
+      "p_value": 0.0167738774340074
+    },
+    {
+      "name": "Value_Composite_2",
+      "definition": "EP, BP, SP, CFP, DP 等权平均",
+      "annualized_return": 0.042848751851528366,
+      "information_ratio": 0.7503002644761684,
+      "sharpe_ratio": 0.7503002644761684,
+      "max_drawdown": -0.051688759368284896,
+      "win_rate": 0.5294117647058824,
+      "t_statistic": 2.426143352281009,
+      "p_value": 0.0167738774340074
+    }
+  ],
+  "momentum_factors": [
+    {
+      "name": "MOM_12_1",
+      "definition": "过去12个月收益，跳过最近1个月",
+      "annualized_return": 0.042848751851528366,
+      "information_ratio": 0.7503002644761684,
+      "sharpe_ratio": 0.7503002644761684,
+      "max_drawdown": -0.051688759368284896,
+      "win_rate": 0.5294117647058824,
+      "t_statistic": 2.426143352281009,
+      "p_value": 0.0167738774340074
+    },
+    {
+      "name": "MOM_6_1",
+      "definition": "过去6个月收益，跳过最近1个月",
+      "annualized_return": 0.042848751851528366,
+      "information_ratio": 0.7503002644761684,
+      "sharpe_ratio": 0.7503002644761684,
+      "max_drawdown": -0.051688759368284896,
+      "win_rate": 0.5294117647058824,
+      "t_statistic": 2.426143352281009,
+      "p_value": 0.0167738774340074
+    },
+    {
+      "name": "MOM_9_1",
+      "definition": "过去9个月收益，跳过最近1个月",
+      "annualized_return": 0.042848751851528366,
+      "information_ratio": 0.7503002644761684,
+      "sharpe_ratio": 0.7503002644761684,
+      "max_drawdown": -0.051688759368284896,
+      "win_rate": 0.5294117647058824,
+      "t_statistic": 2.426143352281009,
+      "p_value": 0.0167738774340074
+    },
+    {
+      "name": "MOM_12_0",
+      "definition": "过去12个月收益，不跳过",
+      "annualized_return": 0.042848751851528366,
+      "information_ratio": 0.7503002644761684,
+      "sharpe_ratio": 0.7503002644761684,
+      "max_drawdown": -0.051688759368284896,
+      "win_rate": 0.5294117647058824,
+      "t_statistic": 2.426143352281009,
+      "p_value": 0.0167738774340074
+    },
+    {
+      "name": "MOM_3_0",
+      "definition": "过去3个月收益",
+      "annualized_return": 0.042848751851528366,
+      "information_ratio": 0.7503002644761684,
+      "sharpe_ratio": 0.7503002644761684,
+      "max_drawdown": -0.051688759368284896,
+      "win_rate": 0.5294117647058824,
+      "t_statistic": 2.426143352281009,
+      "p_value": 0.0167738774340074
+    },
+    {
+      "name": "MOM_VolAdj",
+      "definition": "动量 / 波动率",
+      "annualized_return": 0.042848751851528366,
+      "information_ratio": 0.7503002644761684,
+      "sharpe_ratio": 0.7503002644761684,
+      "max_drawdown": -0.051688759368284896,
+      "win_rate": 0.5294117647058824,
+      "t_statistic": 2.426143352281009,
+      "p_value": 0.0167738774340074
+    },
+    {
+      "name": "MOM_Smooth",
+      "definition": "过去12个月，跳过1个月，使用3个月平均",
+      "annualized_return": 0.05630601643439048,
+      "information_ratio": 1.1178470695326164,
+      "sharpe_ratio": 1.1178470695326164,
+      "max_drawdown": -0.03584833867055418,
+      "win_rate": 0.6263736263736264,
+      "t_statistic": 3.5399107658708258,
+      "p_value": 0.0005737341442537641
+    }
+  ]
+}

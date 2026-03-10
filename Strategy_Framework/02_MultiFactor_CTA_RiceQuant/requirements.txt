@@ -1,0 +1,27 @@
+# 多因子选股 + CTA策略依赖
+# =========================
+
+# 基础依赖
+pandas>=1.5.0
+numpy>=1.21.0
+
+# 米筐数据SDK (必需)
+rqdatac>=2.0.0
+
+# 米筐回测框架 (可选，用于实盘回测)
+rqalpha>=4.0.0
+
+# 数据处理
+python-dateutil>=2.8.0
+
+# 日志
+logging-utils>=0.0.1
+
+# 类型检查
+typing-extensions>=4.0.0
+
+# 开发工具 (可选)
+pytest>=7.0.0
+jupyter>=1.0.0
+matplotlib>=3.5.0
+seaborn>=0.12.0

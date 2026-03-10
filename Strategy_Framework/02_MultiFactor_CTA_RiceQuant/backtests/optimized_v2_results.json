@@ -1,0 +1,177 @@
+{
+  "metadata": {
+    "timestamp": "2026-03-06 19:48:36"
+  },
+  "top_results": [
+    {
+      "factor_name": "V0.3M0.7_L6_N15_N",
+      "factor_type": "multi-factor",
+      "params": {
+        "value_w": 0.3,
+        "momentum_w": 0.7,
+        "lookback": 6,
+        "n_stocks": 15,
+        "neutralize": true,
+        "name": "V0.3M0.7_L6_N15_N"
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "V0.3M0.7_L6_N15_NN",
+      "factor_type": "multi-factor",
+      "params": {
+        "value_w": 0.3,
+        "momentum_w": 0.7,
+        "lookback": 6,
+        "n_stocks": 15,
+        "neutralize": false,
+        "name": "V0.3M0.7_L6_N15_NN"
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "V0.3M0.7_L6_N20_N",
+      "factor_type": "multi-factor",
+      "params": {
+        "value_w": 0.3,
+        "momentum_w": 0.7,
+        "lookback": 6,
+        "n_stocks": 20,
+        "neutralize": true,
+        "name": "V0.3M0.7_L6_N20_N"
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "V0.3M0.7_L6_N20_NN",
+      "factor_type": "multi-factor",
+      "params": {
+        "value_w": 0.3,
+        "momentum_w": 0.7,
+        "lookback": 6,
+        "n_stocks": 20,
+        "neutralize": false,
+        "name": "V0.3M0.7_L6_N20_NN"
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "V0.3M0.7_L12_N15_N",
+      "factor_type": "multi-factor",
+      "params": {
+        "value_w": 0.3,
+        "momentum_w": 0.7,
+        "lookback": 12,
+        "n_stocks": 15,
+        "neutralize": true,
+        "name": "V0.3M0.7_L12_N15_N"
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "V0.3M0.7_L12_N15_NN",
+      "factor_type": "multi-factor",
+      "params": {
+        "value_w": 0.3,
+        "momentum_w": 0.7,
+        "lookback": 12,
+        "n_stocks": 15,
+        "neutralize": false,
+        "name": "V0.3M0.7_L12_N15_NN"
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "V0.3M0.7_L12_N20_N",
+      "factor_type": "multi-factor",
+      "params": {
+        "value_w": 0.3,
+        "momentum_w": 0.7,
+        "lookback": 12,
+        "n_stocks": 20,
+        "neutralize": true,
+        "name": "V0.3M0.7_L12_N20_N"
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "V0.3M0.7_L12_N20_NN",
+      "factor_type": "multi-factor",
+      "params": {
+        "value_w": 0.3,
+        "momentum_w": 0.7,
+        "lookback": 12,
+        "n_stocks": 20,
+        "neutralize": false,
+        "name": "V0.3M0.7_L12_N20_NN"
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "V0.5M0.5_L6_N15_N",
+      "factor_type": "multi-factor",
+      "params": {
+        "value_w": 0.5,
+        "momentum_w": 0.5,
+        "lookback": 6,
+        "n_stocks": 15,
+        "neutralize": true,
+        "name": "V0.5M0.5_L6_N15_N"
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "V0.5M0.5_L6_N15_NN",
+      "factor_type": "multi-factor",
+      "params": {
+        "value_w": 0.5,
+        "momentum_w": 0.5,
+        "lookback": 6,
+        "n_stocks": 15,
+        "neutralize": false,
+        "name": "V0.5M0.5_L6_N15_NN"
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    }
+  ]
+}

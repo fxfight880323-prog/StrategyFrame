@@ -1,0 +1,131 @@
+{
+  "metadata": {
+    "backtest_period": "2014-01-01 to 2024-01-01",
+    "timestamp": "2026-03-06 17:58:17",
+    "note": "Fixed version with differentiated factor data"
+  },
+  "value_factors": [
+    {
+      "name": "EP",
+      "annualized_return": -0.1857526430817169,
+      "information_ratio": -8.405427535393839,
+      "sharpe_ratio": -8.405427535393839,
+      "max_drawdown": -0.8718957391377982,
+      "win_rate": 0.0
+    },
+    {
+      "name": "BP",
+      "annualized_return": 0.35587880979989817,
+      "information_ratio": 28.966090933768896,
+      "sharpe_ratio": 28.966090933768896,
+      "max_drawdown": 0.0,
+      "win_rate": 1.0
+    },
+    {
+      "name": "SP",
+      "annualized_return": 0.10126329472122064,
+      "information_ratio": 5.14400317511537,
+      "sharpe_ratio": 5.14400317511537,
+      "max_drawdown": 0.0,
+      "win_rate": 1.0
+    },
+    {
+      "name": "CFP",
+      "annualized_return": -0.2624644121952522,
+      "information_ratio": -12.267033316154706,
+      "sharpe_ratio": -12.267033316154706,
+      "max_drawdown": -0.952375568033488,
+      "win_rate": 0.0
+    },
+    {
+      "name": "DP",
+      "annualized_return": -0.003838692793995957,
+      "information_ratio": -0.5212818591823307,
+      "sharpe_ratio": -0.5212818591823307,
+      "max_drawdown": -0.037730570079757,
+      "win_rate": 0.48739495798319327
+    },
+    {
+      "name": "EBIT_EV",
+      "annualized_return": 0.19255759515299897,
+      "information_ratio": 7.821706630703551,
+      "sharpe_ratio": 7.821706630703551,
+      "max_drawdown": -0.006914315548002832,
+      "win_rate": 0.9831932773109243
+    },
+    {
+      "name": "Value_Composite_1",
+      "annualized_return": 0.19255759515299897,
+      "information_ratio": 7.821706630703551,
+      "sharpe_ratio": 7.821706630703551,
+      "max_drawdown": -0.006914315548002832,
+      "win_rate": 0.9831932773109243
+    },
+    {
+      "name": "Value_Composite_2",
+      "annualized_return": 0.19255759515299897,
+      "information_ratio": 7.821706630703551,
+      "sharpe_ratio": 7.821706630703551,
+      "max_drawdown": -0.006914315548002832,
+      "win_rate": 0.9831932773109243
+    }
+  ],
+  "momentum_factors": [
+    {
+      "name": "MOM_12_1",
+      "annualized_return": 0.3299442611446157,
+      "information_ratio": 38.188489075494786,
+      "sharpe_ratio": 38.188489075494786,
+      "max_drawdown": 0.0,
+      "win_rate": 1.0
+    },
+    {
+      "name": "MOM_6_1",
+      "annualized_return": -0.21081554984039597,
+      "information_ratio": -8.35973124673932,
+      "sharpe_ratio": -8.35973124673932,
+      "max_drawdown": -0.9062901603734006,
+      "win_rate": 0.0
+    },
+    {
+      "name": "MOM_9_1",
+      "annualized_return": 0.19255759515299897,
+      "information_ratio": 7.821706630703551,
+      "sharpe_ratio": 7.821706630703551,
+      "max_drawdown": -0.006914315548002832,
+      "win_rate": 0.9831932773109243
+    },
+    {
+      "name": "MOM_12_0",
+      "annualized_return": 0.19255759515299897,
+      "information_ratio": 7.821706630703551,
+      "sharpe_ratio": 7.821706630703551,
+      "max_drawdown": -0.006914315548002832,
+      "win_rate": 0.9831932773109243
+    },
+    {
+      "name": "MOM_3_0",
+      "annualized_return": 0.19255759515299897,
+      "information_ratio": 7.821706630703551,
+      "sharpe_ratio": 7.821706630703551,
+      "max_drawdown": -0.006914315548002832,
+      "win_rate": 0.9831932773109243
+    },
+    {
+      "name": "MOM_VolAdj",
+      "annualized_return": 0.19255759515299897,
+      "information_ratio": 7.821706630703551,
+      "sharpe_ratio": 7.821706630703551,
+      "max_drawdown": -0.006914315548002832,
+      "win_rate": 0.9831932773109243
+    },
+    {
+      "name": "MOM_Smooth",
+      "annualized_return": -0.39882570529704753,
+      "information_ratio": -20.502995861954492,
+      "sharpe_ratio": -20.502995861954492,
+      "max_drawdown": -0.9938339928298036,
+      "win_rate": 0.0
+    }
+  ]
+}

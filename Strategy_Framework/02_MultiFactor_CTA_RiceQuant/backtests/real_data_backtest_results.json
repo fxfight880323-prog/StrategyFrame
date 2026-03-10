@@ -1,0 +1,65 @@
+{
+  "metadata": {
+    "backtest_period": "2014-01-01 to 2024-01-01",
+    "data_source": "RiceQuant (真实数据)",
+    "timestamp": "2026-03-06 17:54:55"
+  },
+  "value_factors": [
+    {
+      "factor_name": "EP",
+      "factor_type": "value",
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "BP",
+      "factor_type": "value",
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "SP",
+      "factor_type": "value",
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "Composite",
+      "factor_type": "value",
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    }
+  ],
+  "momentum_factors": [
+    {
+      "factor_name": "MOM_12_1",
+      "factor_type": "momentum",
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "MOM_6_1",
+      "factor_type": "momentum",
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    }
+  ]
+}

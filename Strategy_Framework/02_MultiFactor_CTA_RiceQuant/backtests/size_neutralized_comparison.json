@@ -1,0 +1,94 @@
+{
+  "comparison": [
+    {
+      "factor_name": "EP",
+      "neutralized": false,
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "EP",
+      "neutralized": true,
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "BP",
+      "neutralized": false,
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "BP",
+      "neutralized": true,
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "SP",
+      "neutralized": false,
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "SP",
+      "neutralized": true,
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "MOM_12_1",
+      "neutralized": false,
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "MOM_12_1",
+      "neutralized": true,
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "MOM_6_1",
+      "neutralized": false,
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "MOM_6_1",
+      "neutralized": true,
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    }
+  ]
+}

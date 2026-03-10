@@ -1,0 +1,47 @@
+{
+  "Value": {
+    "factor_name": "value",
+    "start_date": "2023-01-01",
+    "end_date": "2023-03-31",
+    "total_return": 0.061706878474364846,
+    "annualized_return": 0.27062830059309273,
+    "volatility": 0.008893947462072737,
+    "sharpe_ratio": 30.428367352871987,
+    "information_ratio": 30.428367352871987,
+    "sortino_ratio": 2706.283005930927,
+    "max_drawdown": 0.0,
+    "calmar_ratio": 0,
+    "num_stocks_held": 0,
+    "turnover": 0.5530341205898137
+  },
+  "Momentum": {
+    "factor_name": "momentum",
+    "start_date": "2023-01-01",
+    "end_date": "2023-03-31",
+    "total_return": 0.05961592041806196,
+    "annualized_return": 0.2606481745517961,
+    "volatility": 0.005800839945535518,
+    "sharpe_ratio": 44.93283334810813,
+    "information_ratio": 44.93283334810813,
+    "sortino_ratio": 2606.481745517961,
+    "max_drawdown": 0.0,
+    "calmar_ratio": 0,
+    "num_stocks_held": 0,
+    "turnover": 0.048113371825117476
+  },
+  "COMBO": {
+    "factor_name": "combo",
+    "start_date": "2023-01-01",
+    "end_date": "2023-03-31",
+    "total_return": 0.05069283037042749,
+    "annualized_return": 0.2187175777193766,
+    "volatility": 0.007181493956706407,
+    "sharpe_ratio": 30.455721196441047,
+    "information_ratio": 30.455721196441047,
+    "sortino_ratio": 2187.175777193766,
+    "max_drawdown": 0.0,
+    "calmar_ratio": 0,
+    "num_stocks_held": 0,
+    "turnover": 0.3447685482118084
+  }
+}

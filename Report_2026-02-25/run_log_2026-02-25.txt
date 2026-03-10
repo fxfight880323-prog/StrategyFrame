@@ -1,0 +1,140 @@
+2026-02-26 09:08:55,311 | INFO | ============================================================
+2026-02-26 09:08:55,311 | INFO | 美股周报自动化系统
+2026-02-26 09:08:55,311 | INFO | 运行日期: 2026-02-25
+2026-02-26 09:08:55,311 | INFO | 报告目录: .\Report_2026-02-25
+2026-02-26 09:08:55,311 | INFO | ============================================================
+2026-02-26 09:08:55,311 | INFO | 
+============================================================
+2026-02-26 09:08:55,311 | INFO | 开始执行: CTA技术分析
+2026-02-26 09:08:55,311 | INFO | ============================================================
+2026-02-26 09:12:45,148 | INFO | 2026-02-26 09:08:56,653 | INFO | ============================================================
+2026-02-26 09:08:56,653 | INFO | 美股核心个股 CTA 技术分析系统
+2026-02-26 09:08:56,653 | INFO | 分析日期: 2026-02-23
+2026-02-26 09:08:56,653 | INFO | ============================================================
+2026-02-26 09:08:56,669 | INFO | ============================================================
+2026-02-26 09:08:56,669 | INFO | 获取美股核心个股数据...
+2026-02-26 09:08:56,669 | INFO | ============================================================
+2026-02-26 09:09:15,431 | INFO |   已获取 10/101 只股票
+2026-02-26 09:09:38,955 | INFO |   已获取 20/101 只股票
+2026-02-26 09:10:02,135 | INFO |   已获取 30/101 只股票
+2026-02-26 09:10:25,350 | INFO |   已获取 40/101 只股票
+2026-02-26 09:10:54,261 | INFO |   已获取 50/101 只股票
+2026-02-26 09:11:16,541 | INFO |   已获取 60/101 只股票
+2026-02-26 09:11:37,225 | INFO |   已获取 70/101 只股票
+2026-02-26 09:11:58,416 | INFO |   已获取 80/101 只股票
+2026-02-26 09:12:18,631 | INFO |   已获取 90/101 只股票
+2026-02-26 09:12:39,641 | INFO |   已获取 100/101 只股票
+2026-02-26 09:12:41,854 | INFO | 成功获取 101 只股票数据
+2026-02-26 09:12:41,888 | INFO | 
+============================================================
+2026-02-26 09:12:41,888 | INFO | 计算技术指标并排名...
+2026-02-26 09:12:41,888 | INFO | ============================================================
+2026-02-26 09:12:44,953 | INFO | 
+结果已保存: .\mag7_cta_analysis.xlsx
+2026-02-26 09:12:44,953 | INFO | 
+================================================================================
+2026-02-26 09:12:44,953 | INFO | CTA 技术分析排名摘要
+2026-02-26 09:12:44,953 | INFO | ================================================================================
+2026-02-26 09:12:44,953 | INFO | --------------------------------------------------------------------------------
+2026-02-26 09:12:44,953 | INFO | 排名   代码       价格         总分       短期     中期     趋势     信号      
+2026-02-26 09:12:44,953 | INFO | --------------------------------------------------------------------------------
+2026-02-26 09:12:44,953 | INFO | 1    NVDA     $191.55    88      强      强      强      BUY     
+2026-02-26 09:12:44,953 | INFO | 2    VZ       $49.68     86      中      强      强      BUY     
+2026-02-26 09:12:44,953 | INFO | 3    FDX      $383.71    86      中      强      强      BUY     
+2026-02-26 09:12:44,953 | INFO | 4    GE       $338.99    86      中      强      强      BUY     
+2026-02-26 09:12:44,953 | INFO | 5    TSM      $370.04    85      中      强      强      BUY     
+2026-02-26 09:12:44,953 | INFO | 6    MRK      $123.82    84      中      强      强      BUY     
+2026-02-26 09:12:44,953 | INFO | 7    UNP      $263.76    83      中      强      强      BUY     
+2026-02-26 09:12:44,953 | INFO | 8    SYK      $384.73    82      中      强      强      BUY     
+2026-02-26 09:12:44,953 | INFO | 9    ABBV     $229.48    82      中      强      强      BUY     
+2026-02-26 09:12:44,953 | INFO | 10   ASML     $1485.99   82      强      中      强      BUY     
+2026-02-26 09:12:44,953 | INFO | --------------------------------------------------------------------------------
+2026-02-26 09:12:44,953 | INFO | 排名   代码       价格         总分       RSI      20日距     评级          
+2026-02-26 09:12:44,953 | INFO | --------------------------------------------------------------------------------
+2026-02-26 09:12:44,953 | INFO | 1    NVDA     $191.55    88      55.8    +2.8   % 强烈看涨        
+2026-02-26 09:12:44,953 | INFO | 40   AAPL     $266.18    55      46.5    +0.1   % 中性偏强        
+2026-02-26 09:12:44,953 | INFO | 54   GOOGL    $311.49    49      24.0    -3.5   % 中性偏弱        
+2026-02-26 09:12:44,953 | INFO | 62   TSLA     $399.83    41      37.4    -4.3   % 中性偏弱        
+2026-02-26 09:12:44,953 | INFO | 71   AMZN     $205.27    34      18.8    -6.7   % 看跌          
+2026-02-26 09:12:44,953 | INFO | 75   META     $637.25    32      24.5    -4.8   % 看跌          
+2026-02-26 09:12:44,953 | INFO | 84   MSFT     $384.47    28      28.4    -7.9   % 看跌          
+2026-02-26 09:12:44,953 | INFO | --------------------------------------------------------------------------------
+2026-02-26 09:12:44,953 | INFO | 91   IBM      $223.35    25      - 看跌
+2026-02-26 09:12:44,953 | INFO | 92   SPGI     $404.78    23      - 看跌
+2026-02-26 09:12:44,953 | INFO | 93   PANW     $144.14    22      - 看跌
+2026-02-26 09:12:44,953 | INFO | 94   OKTA     $69.51     22      - 看跌
+2026-02-26 09:12:44,953 | INFO | 95   CRWD     $350.33    22      - 看跌
+2026-02-26 09:12:44,953 | INFO | 96   BKNG     $3870.83   22      - 看跌
+2026-02-26 09:12:44,968 | INFO | 97   ACN      $201.18    22      - 看跌
+2026-02-26 09:12:44,968 | INFO | 98   ZS       $143.28    22      - 看跌
+2026-02-26 09:12:44,968 | INFO | 99   NET      $160.19    20      - 看跌
+2026-02-26 09:12:44,968 | INFO | 100  DDOG     $102.61    20      - 看跌
+2026-02-26 09:12:44,968 | INFO | 
+================================================================================
+2026-02-26 09:12:44,968 | INFO | 统计摘要
+2026-02-26 09:12:44,968 | INFO | ================================================================================
+2026-02-26 09:12:44,968 | INFO | 看涨 (BUY): 31 只 (31.0%)
+2026-02-26 09:12:44,968 | INFO | 中性 (HOLD): 38 只 (38.0%)
+2026-02-26 09:12:44,968 | INFO | 看跌 (SELL): 31 只 (31.0%)
+2026-02-26 09:12:44,968 | INFO | 平均得分: 51.6
+2026-02-26 09:12:44,968 | INFO | 中位数得分: 51.1
+2026-02-26 09:12:44,968 | INFO | ================================================================================
+2026-02-26 09:12:44,968 | INFO | 
+分析完成！
+
+2026-02-26 09:12:45,148 | ERROR | D:\Python\Lib\site-packages\pandas\core\computation\expressions.py:22: UserWarning: Pandas requires version '2.10.2' or newer of 'numexpr' (version '2.8.8' currently installed).
+  from pandas.core.computation.check import NUMEXPR_INSTALLED
+--- Logging error ---
+Traceback (most recent call last):
+  File "D:\Python\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\U0001f3c6' in position 35: illegal multibyte sequence
+Call stack:
+  File "C:\Users\xfugm\Desktop\美股分析框架\Mag7CTAAnalyzer.py", line 603, in <module>
+    main()
+  File "C:\Users\xfugm\Desktop\美股分析框架\Mag7CTAAnalyzer.py", line 593, in main
+    save_outputs(ranked_df, OUTPUT_DIR, OUTPUT_XLSX, logger)
+  File "C:\Users\xfugm\Desktop\美股分析框架\Mag7CTAAnalyzer.py", line 506, in save_outputs
+    print_summary(ranked_df, logger)
+  File "C:\Users\xfugm\Desktop\美股分析框架\Mag7CTAAnalyzer.py", line 516, in print_summary
+    logger.info("\n\U0001f3c6 TOP 10 强势个股 (强烈看涨):")
+Message: '\n\U0001f3c6 TOP 10 强势个股 (强烈看涨):'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "D:\Python\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\U0001f680' in position 35: illegal multibyte sequence
+Call stack:
+  File "C:\Users\xfugm\Desktop\美股分析框架\Mag7CTAAnalyzer.py", line 603, in <module>
+    main()
+  File "C:\Users\xfugm\Desktop\美股分析框架\Mag7CTAAnalyzer.py", line 593, in main
+    save_outputs(ranked_df, OUTPUT_DIR, OUTPUT_XLSX, logger)
+  File "C:\Users\xfugm\Desktop\美股分析框架\Mag7CTAAnalyzer.py", line 506, in save_outputs
+    print_summary(ranked_df, logger)
+  File "C:\Users\xfugm\Desktop\美股分析框架\Mag7CTAAnalyzer.py", line 527, in print_summary
+    logger.info("\n\U0001f680 科技巨头排名:")
+Message: '\n\U0001f680 科技巨头排名:'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "D:\Python\Lib\logging\__init__.py", line 1113, in emit
+    stream.write(msg + self.terminator)
+UnicodeEncodeError: 'gbk' codec can't encode character '\u26a0' in position 35: illegal multibyte sequence
+Call stack:
+  File "C:\Users\xfugm\Desktop\美股分析框架\Mag7CTAAnalyzer.py", line 603, in <module>
+    main()
+  File "C:\Users\xfugm\Desktop\美股分析框架\Mag7CTAAnalyzer.py", line 593, in main
+    save_outputs(ranked_df, OUTPUT_DIR, OUTPUT_XLSX, logger)
+  File "C:\Users\xfugm\Desktop\美股分析框架\Mag7CTAAnalyzer.py", line 506, in save_outputs
+    print_summary(ranked_df, logger)
+  File "C:\Users\xfugm\Desktop\美股分析框架\Mag7CTAAnalyzer.py", line 539, in print_summary
+    logger.info("\n\u26a0\ufe0f 弱势个股 (建议回避):")
+Message: '\n\u26a0\ufe0f 弱势个股 (建议回避):'
+Arguments: ()
+
+2026-02-26 09:12:45,149 | INFO | ✅ CTA技术分析 执行成功
+2026-02-26 09:12:45,157 | INFO | 
+============================================================
+2026-02-26 09:12:45,158 | INFO | 开始执行: 财报预期分析
+2026-02-26 09:12:45,158 | INFO | ============================================================

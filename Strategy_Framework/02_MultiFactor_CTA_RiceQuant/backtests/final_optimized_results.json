@@ -1,0 +1,187 @@
+{
+  "metadata": {
+    "timestamp": "2026-03-06 19:50:49"
+  },
+  "all_results": [
+    {
+      "factor_name": "EP",
+      "params": {
+        "n_long": 15,
+        "n_short": 15
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "EP",
+      "params": {
+        "n_long": 20,
+        "n_short": 20
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "EP",
+      "params": {
+        "n_long": 25,
+        "n_short": 25
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "BP",
+      "params": {
+        "n_long": 15,
+        "n_short": 15
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "BP",
+      "params": {
+        "n_long": 20,
+        "n_short": 20
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "BP",
+      "params": {
+        "n_long": 25,
+        "n_short": 25
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "SP",
+      "params": {
+        "n_long": 15,
+        "n_short": 15
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "SP",
+      "params": {
+        "n_long": 20,
+        "n_short": 20
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "SP",
+      "params": {
+        "n_long": 25,
+        "n_short": 25
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "MOM_12_1",
+      "params": {
+        "n_long": 15,
+        "n_short": 15
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "MOM_12_1",
+      "params": {
+        "n_long": 20,
+        "n_short": 20
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "MOM_12_1",
+      "params": {
+        "n_long": 25,
+        "n_short": 25
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "MOM_6_1",
+      "params": {
+        "n_long": 15,
+        "n_short": 15
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "MOM_6_1",
+      "params": {
+        "n_long": 20,
+        "n_short": 20
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    },
+    {
+      "factor_name": "MOM_6_1",
+      "params": {
+        "n_long": 25,
+        "n_short": 25
+      },
+      "annualized_return": 0.0,
+      "information_ratio": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0
+    }
+  ]
+}

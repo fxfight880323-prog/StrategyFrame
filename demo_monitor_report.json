@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "generated_at": "2026-03-03T15:36:13.933304",
+    "monitor_level": "normal",
+    "risk_free_rate": 0.03
+  },
+  "compliance": {
+    "score": 90,
+    "violations_count": 1,
+    "violations": [
+      {
+        "type": "future_data",
+        "message": "使用了未来数据! 在2023-06-01访问了2023-06-05的数据",
+        "severity": "ERROR",
+        "timestamp": "2026-03-03T15:36:13.920246",
+        "details": {
+          "access_date": "2023-06-01",
+          "future_date": "2023-06-05",
+          "variable": "test_price"
+        }
+      }
+    ]
+  },
+  "metrics": {
+    "total_return": 1.6732769957608502,
+    "annual_return": 0.2681727200067381,
+    "volatility": 0.3109010846518807,
+    "max_drawdown": -0.4232719642496851,
+    "sharpe_ratio": 0.7660723354292014,
+    "sortino_ratio": 1.3493895337163895,
+    "calmar_ratio": 0.6335707125845569,
+    "information_ratio": 0.0,
+    "treynor_ratio": 0.0,
+    "win_rate": 0.5254074784276127,
+    "profit_factor": 1.0446357509295694,
+    "var_95": -0.029956104218015974,
+    "cvar_95": -0.03763857340294279
+  }
+}

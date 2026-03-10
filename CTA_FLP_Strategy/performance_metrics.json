@@ -1,0 +1,14 @@
+{
+  "initial_capital": 1000000,
+  "final_value": 493672.21026459837,
+  "total_return_pct": -50.63277897354017,
+  "annual_return_pct": -1.8440663713109484,
+  "annual_volatility_pct": 0.288141374549038,
+  "max_drawdown_pct": -50.63277897354016,
+  "sharpe_ratio": -193.0745942355883,
+  "sortino_ratio": -898.3735308382786,
+  "calmar_ratio": -1.0000000000000002,
+  "win_rate_pct": 0.0,
+  "profit_factor": NaN,
+  "total_days": 9557
+}

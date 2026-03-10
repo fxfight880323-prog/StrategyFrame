@@ -1,0 +1,54 @@
+{
+  "metadata": {
+    "timestamp": "2026-03-09 09:27:51"
+  },
+  "value_factors": [
+    {
+      "factor_name": "EP",
+      "factor_type": "value",
+      "annualized_return": 0.04224877448437181,
+      "information_ratio": 0.20105428252932458,
+      "sharpe_ratio": 0.20105428252932458,
+      "max_drawdown": -0.43927895018808577,
+      "win_rate": 0.5462184873949579
+    },
+    {
+      "factor_name": "BP",
+      "factor_type": "value",
+      "annualized_return": 0.05050918462932463,
+      "information_ratio": 0.14953897036671074,
+      "sharpe_ratio": 0.14953897036671074,
+      "max_drawdown": -0.7593893510910874,
+      "win_rate": 0.5210084033613446
+    },
+    {
+      "factor_name": "SP",
+      "factor_type": "value",
+      "annualized_return": 0.10870481682771183,
+      "information_ratio": 0.40696757141477474,
+      "sharpe_ratio": 0.40696757141477474,
+      "max_drawdown": -0.5506349209756746,
+      "win_rate": 0.5462184873949579
+    }
+  ],
+  "momentum_factors": [
+    {
+      "factor_name": "MOM_12_1",
+      "factor_type": "momentum",
+      "annualized_return": 0.055165221165597744,
+      "information_ratio": 0.5300969710464059,
+      "sharpe_ratio": 0.5300969710464059,
+      "max_drawdown": -0.12420269256225983,
+      "win_rate": 0.5882352941176471
+    },
+    {
+      "factor_name": "MOM_6_1",
+      "factor_type": "momentum",
+      "annualized_return": 0.04659924051740627,
+      "information_ratio": 0.3090594955465234,
+      "sharpe_ratio": 0.3090594955465234,
+      "max_drawdown": -0.2784703461395592,
+      "win_rate": 0.5630252100840336
+    }
+  ]
+}

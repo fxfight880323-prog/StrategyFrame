@@ -1,0 +1,139 @@
+{
+  "optimization_results": [
+    {
+      "factor_name": "MOM_12_1_N15",
+      "factor_type": "momentum",
+      "annualized_return": 0.11329132838631062,
+      "information_ratio": 0.7898862533033902,
+      "sharpe_ratio": 0.7898862533033902,
+      "max_drawdown": -0.14577398904590377,
+      "win_rate": 0.6666666666666666
+    },
+    {
+      "factor_name": "MOM_12_1_N20",
+      "factor_type": "momentum",
+      "annualized_return": 0.11329132838631062,
+      "information_ratio": 0.7898862533033902,
+      "sharpe_ratio": 0.7898862533033902,
+      "max_drawdown": -0.14577398904590377,
+      "win_rate": 0.6666666666666666
+    },
+    {
+      "factor_name": "MOM_12_1_N25",
+      "factor_type": "momentum",
+      "annualized_return": 0.11329132838631062,
+      "information_ratio": 0.7898862533033902,
+      "sharpe_ratio": 0.7898862533033902,
+      "max_drawdown": -0.14577398904590377,
+      "win_rate": 0.6666666666666666
+    },
+    {
+      "factor_name": "MOM_6_1_N15",
+      "factor_type": "momentum",
+      "annualized_return": 0.11329132838631062,
+      "information_ratio": 0.7898862533033902,
+      "sharpe_ratio": 0.7898862533033902,
+      "max_drawdown": -0.14577398904590377,
+      "win_rate": 0.6666666666666666
+    },
+    {
+      "factor_name": "MOM_6_1_N20",
+      "factor_type": "momentum",
+      "annualized_return": 0.11329132838631062,
+      "information_ratio": 0.7898862533033902,
+      "sharpe_ratio": 0.7898862533033902,
+      "max_drawdown": -0.14577398904590377,
+      "win_rate": 0.6666666666666666
+    },
+    {
+      "factor_name": "MOM_6_1_N25",
+      "factor_type": "momentum",
+      "annualized_return": 0.11329132838631062,
+      "information_ratio": 0.7898862533033902,
+      "sharpe_ratio": 0.7898862533033902,
+      "max_drawdown": -0.14577398904590377,
+      "win_rate": 0.6666666666666666
+    },
+    {
+      "factor_name": "SP_N15",
+      "factor_type": "value",
+      "annualized_return": -0.11909480231696823,
+      "information_ratio": -0.38346331798486233,
+      "sharpe_ratio": -0.38346331798486233,
+      "max_drawdown": -0.5506349209756747,
+      "win_rate": 0.4444444444444444
+    },
+    {
+      "factor_name": "SP_N20",
+      "factor_type": "value",
+      "annualized_return": -0.11909480231696823,
+      "information_ratio": -0.38346331798486233,
+      "sharpe_ratio": -0.38346331798486233,
+      "max_drawdown": -0.5506349209756747,
+      "win_rate": 0.4444444444444444
+    },
+    {
+      "factor_name": "SP_N25",
+      "factor_type": "value",
+      "annualized_return": -0.11909480231696823,
+      "information_ratio": -0.38346331798486233,
+      "sharpe_ratio": -0.38346331798486233,
+      "max_drawdown": -0.5506349209756747,
+      "win_rate": 0.4444444444444444
+    },
+    {
+      "factor_name": "BP_N15",
+      "factor_type": "value",
+      "annualized_return": -0.27645537087358896,
+      "information_ratio": -0.8306620080686083,
+      "sharpe_ratio": -0.8306620080686083,
+      "max_drawdown": -0.7544984272966545,
+      "win_rate": 0.3333333333333333
+    },
+    {
+      "factor_name": "BP_N20",
+      "factor_type": "value",
+      "annualized_return": -0.27645537087358896,
+      "information_ratio": -0.8306620080686083,
+      "sharpe_ratio": -0.8306620080686083,
+      "max_drawdown": -0.7544984272966545,
+      "win_rate": 0.3333333333333333
+    },
+    {
+      "factor_name": "BP_N25",
+      "factor_type": "value",
+      "annualized_return": -0.27645537087358896,
+      "information_ratio": -0.8306620080686083,
+      "sharpe_ratio": -0.8306620080686083,
+      "max_drawdown": -0.7544984272966545,
+      "win_rate": 0.3333333333333333
+    },
+    {
+      "factor_name": "EP_N15",
+      "factor_type": "value",
+      "annualized_return": -0.15203588856939854,
+      "information_ratio": -0.8576561903972697,
+      "sharpe_ratio": -0.8576561903972697,
+      "max_drawdown": -0.3951748358676579,
+      "win_rate": 0.4722222222222222
+    },
+    {
+      "factor_name": "EP_N20",
+      "factor_type": "value",
+      "annualized_return": -0.15203588856939854,
+      "information_ratio": -0.8576561903972697,
+      "sharpe_ratio": -0.8576561903972697,
+      "max_drawdown": -0.3951748358676579,
+      "win_rate": 0.4722222222222222
+    },
+    {
+      "factor_name": "EP_N25",
+      "factor_type": "value",
+      "annualized_return": -0.15203588856939854,
+      "information_ratio": -0.8576561903972697,
+      "sharpe_ratio": -0.8576561903972697,
+      "max_drawdown": -0.3951748358676579,
+      "win_rate": 0.4722222222222222
+    }
+  ]
+}
