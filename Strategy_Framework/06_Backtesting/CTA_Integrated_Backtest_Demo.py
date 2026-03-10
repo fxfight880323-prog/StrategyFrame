@@ -4,13 +4,13 @@ CTA策略整合回测演示
 
 整合模块:
 1. CTA策略复现 (TSMOM, Trend Following, Carry)
-2. 策略评估系统 (Sharpe, Information Ratio�?
+2. 策略评估系统 (Sharpe, Information Ratio�?
 3. 组合风控系统
-4. 多策略组合优�?
+4. 多策略组合优�?
 
 输出:
-- 各策略独立回测结�?
-- 多策略组合回测结�?
+- 各策略独立回测结�?
+- 多策略组合回测结�?
 - 完整绩效报告
 """
 
@@ -21,9 +21,16 @@ from typing import Dict, List, Optional
 from dataclasses import dataclass
 import logging
 
-# 导入自定义模�?
+# 路径设置
+import sys
+import os
+_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(_DIR, '..', '04_Strategy_Execution'))
+sys.path.insert(0, os.path.join(_DIR, '..', '05_Risk_Management'))
+
+# 导入自定义模块
 from CTA_Strategies_CN_Futures import (
-    MockFuturesDataProvider, TSMOMStrategy, TrendFollowingStrategy, 
+    MockFuturesDataProvider, TSMOMStrategy, TrendFollowingStrategy,
     CarryStrategy, MetaModelAllocator, Signal
 )
 from CTA_Strategy_Evaluator import CTAEvaluator, PerformanceMetrics
@@ -45,7 +52,7 @@ class IntegratedBacktestEngine:
         self.start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
         self.end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
         
-        # 数据提供�?
+        # 数据提供�?
         self.data_provider = MockFuturesDataProvider()
         
         # 策略
@@ -61,7 +68,7 @@ class IntegratedBacktestEngine:
         # 风控系统
         self.risk_system = CTARiskManagementSystem()
         
-        # 评估�?
+        # 评估�?
         self.evaluator = CTAEvaluator(risk_free_rate=0.03)
         
         # 日志
@@ -71,7 +78,7 @@ class IntegratedBacktestEngine:
         self._load_data()
     
     def _load_data(self):
-        """加载所有品种数�?""
+        """加载所有品种数�?""
         self.logger.info("加载市场数据...")
         
         self.market_data = {}
@@ -86,7 +93,7 @@ class IntegratedBacktestEngine:
             if not df.empty:
                 self.market_data[symbol] = df
         
-        self.logger.info(f"加载完成: {len(self.market_data)}个品�?)
+        self.logger.info(f"加载完成: {len(self.market_data)}个品�?)
     
     def run_strategy_backtest(self, 
                              strategy_name: str,
@@ -96,7 +103,7 @@ class IntegratedBacktestEngine:
         
         Args:
             strategy_name: 策略名称
-            rebalance_freq: 调仓频率 (交易�?
+            rebalance_freq: 调仓频率 (交易�?
         
         Returns:
             回测结果字典
@@ -105,12 +112,12 @@ class IntegratedBacktestEngine:
         if not strategy:
             raise ValueError(f"未知策略: {strategy_name}")
         
-        self.logger.info(f"\n开始回�? {strategy_name}")
+        self.logger.info(f"\n开始回�? {strategy_name}")
         
         # 生成交易日历
         all_dates = sorted(list(list(self.market_data.values())[0].index))
         
-        # 回测状�?
+        # 回测状�?
         capital = self.initial_capital
         positions = {}  # symbol -> quantity
         portfolio_values = []
@@ -125,13 +132,13 @@ class IntegratedBacktestEngine:
                 # 执行调仓
                 for signal in signals:
                     if abs(signal.target_position) > 0.1:
-                        # 目标仓位价�?
+                        # 目标仓位价�?
                         target_value = signal.target_position * capital
                         
                         # 获取当前价格
                         price = self.market_data[signal.symbol].loc[current_date, 'close']
                         
-                        # 计算手数 (简化假设每手价�?
+                        # 计算手数 (简化假设每手价�?
                         contract_value = price * 10  # 假设每手10单位
                         quantity = int(target_value / contract_value)
                         
@@ -148,7 +155,7 @@ class IntegratedBacktestEngine:
                             })
                             positions[signal.symbol] = quantity
             
-            # 计算当日市�?
+            # 计算当日市�?
             total_value = capital
             daily_pnl = 0
             
@@ -171,7 +178,7 @@ class IntegratedBacktestEngine:
             
             capital = total_value
         
-        # 生成收益率序�?
+        # 生成收益率序�?
         df = pd.DataFrame(portfolio_values)
         df['daily_return'] = df['total_value'].pct_change()
         
@@ -187,7 +194,7 @@ class IntegratedBacktestEngine:
                                     strategy_weights: Dict[str, float] = None,
                                     rebalance_freq: int = 5) -> Dict:
         """
-        运行多策略组合回�?
+        运行多策略组合回�?
         """
         if strategy_weights is None:
             strategy_weights = {name: 1/len(self.strategies) for name in self.strategies}
@@ -211,7 +218,7 @@ class IntegratedBacktestEngine:
             
             self.initial_capital = original_capital
         
-        # 合并各策略收�?(按权重加�?
+        # 合并各策略收�?(按权重加�?
         all_dates = sub_results['TSMOM']['portfolio_values']['date']
         combined_returns = pd.Series(0.0, index=all_dates)
         
@@ -223,7 +230,7 @@ class IntegratedBacktestEngine:
                 if i < len(returns):
                     combined_returns.loc[date] += returns.iloc[i] * weight
         
-        # 计算组合净�?
+        # 计算组合净�?
         combined_values = (1 + combined_returns).cumprod() * self.initial_capital
         
         return {
@@ -239,9 +246,9 @@ class IntegratedBacktestEngine:
     
     def run_meta_model_portfolio(self, rebalance_freq: int = 5) -> Dict:
         """
-        运行元模型动态分配组�?
+        运行元模型动态分配组�?
         """
-        self.logger.info("\n开始元模型动态分配组合回�?)
+        self.logger.info("\n开始元模型动态分配组合回�?)
         
         # 生成交易日历
         all_dates = sorted(list(list(self.market_data.values())[0].index))
@@ -255,10 +262,10 @@ class IntegratedBacktestEngine:
             returns = []
             for i in range(1, len(all_dates)):
                 signals = strategy.generate_signals(self.market_data, all_dates[i])
-                # 简�? 用信号强度作为当日收益代�?
+                # 简�? 用信号强度作为当日收益代�?
                 avg_signal = np.mean([s.target_position for s in signals]) if signals else 0
                 
-                # 根据信号和次日价格变动估算收�?
+                # 根据信号和次日价格变动估算收�?
                 daily_ret = 0
                 for s in signals:
                     if abs(s.target_position) > 0.1 and s.symbol in self.market_data:
@@ -274,7 +281,7 @@ class IntegratedBacktestEngine:
             
             strategy_returns[name] = pd.Series([0] + returns, index=all_dates)
         
-        # 动态组�?
+        # 动态组�?
         for i, current_date in enumerate(all_dates):
             if i == 0:
                 portfolio_values.append({
@@ -286,7 +293,7 @@ class IntegratedBacktestEngine:
             
             # 每月更新权重
             if i % 20 == 0 and i > 20:
-                # 检测市场环�?
+                # 检测市场环�?
                 regime = self.meta_allocator.detect_regime(self.market_data, current_date)
                 
                 # 更新权重
@@ -323,7 +330,7 @@ class IntegratedBacktestEngine:
     def evaluate_and_report(self, results: List[Dict], 
                            benchmark_returns: pd.Series = None):
         """
-        评估并生成报�?
+        评估并生成报�?
         """
         print("\n" + "=" * 80)
         print("CTA策略绩效评估报告")
@@ -350,7 +357,7 @@ class IntegratedBacktestEngine:
         if len(metrics_list) > 1:
             print()
             print("=" * 80)
-            print("策略对比�?)
+            print("策略对比�?)
             print("=" * 80)
             comparison = self.evaluator.compare_strategies(metrics_list)
             print(comparison.to_string())
@@ -359,24 +366,24 @@ class IntegratedBacktestEngine:
 
 
 # ============================================================
-# 主程�?
+# 主程�?
 # ============================================================
 def main():
-    """主程�?- 完整演示"""
+    """主程�?- 完整演示"""
     
     print("=" * 80)
-    print("CTA策略研究与实�?- 完整回测演示")
+    print("CTA策略研究与实�?- 完整回测演示")
     print("=" * 80)
     print()
     print("复现策略:")
     print("  1. TSMOM (时间序列动量) - Moskowitz et al. 2012")
     print("  2. Trend Following (趋势跟踪) - Man Group 2025")
     print("  3. Carry (期限结构) - ReSolve 2024")
-    print("  4. Meta-Model Portfolio (元模型动态分�?")
+    print("  4. Meta-Model Portfolio (元模型动态分�?")
     print()
     print("=" * 80)
     
-    # 初始化回测引�?
+    # 初始化回测引�?
     engine = IntegratedBacktestEngine(
         initial_capital=10_000_000,
         start_date='2020-01-01',
@@ -391,7 +398,7 @@ def main():
         index=benchmark_dates
     )
     
-    # 运行各策略回�?
+    # 运行各策略回�?
     all_results = []
     
     # 1. 单一策略回测
@@ -405,46 +412,46 @@ def main():
     )
     all_results.append(equal_weight_result)
     
-    # 3. 元模型动态分配回�?
+    # 3. 元模型动态分配回�?
     meta_result = engine.run_meta_model_portfolio()
     all_results.append(meta_result)
     
-    # 评估与报�?
+    # 评估与报�?
     metrics_list = engine.evaluate_and_report(all_results, benchmark_returns)
     
     # 总结
     print()
     print("=" * 80)
-    print("总结与建�?)
+    print("总结与建�?)
     print("=" * 80)
     print()
-    print("【核心发现�?)
+    print("【核心发现�?)
     print()
     print("1. 单一策略表现:")
     for m in metrics_list[:3]:
         print(f"   - {m.strategy_name}: 夏普={m.sharpe_ratio:.2f}, "
-              f"最大回�?{m.max_drawdown*100:.1f}%, "
+              f"最大回�?{m.max_drawdown*100:.1f}%, "
               f"信息比率={m.information_ratio:.2f}")
     print()
     
     print("2. 组合策略优势:")
     for m in metrics_list[3:]:
         print(f"   - {m.strategy_name}: 夏普={m.sharpe_ratio:.2f}, "
-              f"最大回�?{m.max_drawdown*100:.1f}%, "
+              f"最大回�?{m.max_drawdown*100:.1f}%, "
               f"Serenity={m.serenity_ratio:.2f}")
     print()
     
-    print("【实施建议�?)
-    print("  1. 建议采用多策略组�?降低单一策略失效风险")
+    print("【实施建议�?)
+    print("  1. 建议采用多策略组�?降低单一策略失效风险")
     print("  2. 元模型动态分配可进一步提升风险调整后收益")
-    print("  3. 严格风控: 单品种≤10%, 板块�?0%, 总杠杆≤2�?)
+    print("  3. 严格风控: 单品种≤10%, 板块�?0%, 总杠杆≤2�?)
     print("  4. 定期(月度)回顾策略表现,调整权重")
     print()
     
-    print("【风险控制�?)
-    print("  - 事前风控: 订单检查、流动性评�?)
+    print("【风险控制�?)
+    print("  - 事前风控: 订单检查、流动性评�?)
     print("  - 事中风控: 止损止盈、波动率监控")
-    print("  - 事后风控: 压力测试、归因分�?)
+    print("  - 事后风控: 压力测试、归因分�?)
     print()
     
     print("=" * 80)

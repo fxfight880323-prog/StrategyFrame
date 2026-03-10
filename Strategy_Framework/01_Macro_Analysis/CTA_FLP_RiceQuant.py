@@ -20,6 +20,11 @@ import numpy as np
 from datetime import date, timedelta
 from typing import Dict, List, Optional
 
+# 路径设置
+import os
+_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(_DIR, '..', 'data_providers'))
+
 # 导入米筐数据提供器
 from RiceQuantDataProvider import RiceQuantDataProvider, CTADataAdapterRQ, FLPDataAdapterRQ
 

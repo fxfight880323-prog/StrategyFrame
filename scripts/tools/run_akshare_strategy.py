@@ -9,6 +9,11 @@ import sys
 import io
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
 
+# 路径设置
+import os
+_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(_DIR, '..', '..', 'Strategy_Framework', '01_Macro_Analysis'))
+
 from AKShare_CTA_FLP_Strategy import IntegratedAKShareStrategy
 import pandas as pd
 from datetime import date

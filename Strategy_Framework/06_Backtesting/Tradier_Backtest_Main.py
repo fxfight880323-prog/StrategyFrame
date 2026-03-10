@@ -23,6 +23,11 @@ from typing import Dict, List
 import logging
 import os
 
+# 路径设置
+_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(_DIR, '..', 'data_providers'))
+sys.path.insert(0, os.path.join(_DIR, '..', '04_Strategy_Execution'))
+
 from TradierDataProvider import TradierDataProvider
 from CTA_FLP_Strategy_Tradier import CTAFLPBacktest
 from OptionsBacktest_Tradier import OptionsStrategyBacktest, OptionsStrategy

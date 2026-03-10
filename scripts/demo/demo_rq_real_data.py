@@ -11,6 +11,15 @@ from datetime import datetime
 import warnings
 warnings.filterwarnings('ignore')
 
+# 路径设置
+import sys
+import os
+_DIR = os.path.dirname(os.path.abspath(__file__))
+_SF = os.path.join(_DIR, '..', '..', 'Strategy_Framework')
+sys.path.insert(0, os.path.join(_SF, 'data_providers'))
+sys.path.insert(0, os.path.join(_SF, '04_Strategy_Execution'))
+sys.path.insert(0, os.path.join(_SF, '06_Backtesting'))
+
 from RiceQuantDataProvider_CTA import RiceQuantCTADataProvider
 from CTA_Strategies_CN_Futures import TSMOMStrategy, TrendFollowingStrategy, CarryStrategy
 from CTA_Strategy_Evaluator import CTAEvaluator

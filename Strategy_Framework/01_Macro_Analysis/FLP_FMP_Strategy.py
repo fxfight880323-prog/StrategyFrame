@@ -22,6 +22,11 @@ from typing import Dict, List, Optional, Tuple
 from dataclasses import dataclass
 from enum import Enum
 
+# 路径设置
+import os
+_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(_DIR, '..', 'data_providers'))
+
 # 导入 FMP 数据提供器
 from FMPDataProvider import FMPDataProvider, FLPDataAdapter
 

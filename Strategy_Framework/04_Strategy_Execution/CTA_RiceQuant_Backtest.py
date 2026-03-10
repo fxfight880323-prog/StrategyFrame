@@ -8,7 +8,7 @@
 1. TSMOM (时间序列动量)
 2. Trend Following (趋势跟踪)
 3. Carry (期限结构)
-4. Meta-Model Portfolio (元模型组�?
+4. Meta-Model Portfolio (元模型组�?
 
 数据:
 - 米筐期货主力合约数据
@@ -23,6 +23,13 @@ from typing import Dict, List, Optional
 import logging
 import warnings
 warnings.filterwarnings('ignore')
+
+# 路径设置
+import sys
+import os
+_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(_DIR, '..', 'data_providers'))
+sys.path.insert(0, os.path.join(_DIR, '..', '06_Backtesting'))
 
 # 导入模块
 from RiceQuantDataProvider_CTA import RiceQuantCTADataProvider, CTADatamanager, CATEGORY_MAP
@@ -39,9 +46,9 @@ class RiceQuantCTABacktester:
     
     特点:
     - 使用真实期货数据
-    - 支持多策略组�?
-    - 完整的绩效评�?
-    - 详细的交易记�?
+    - 支持多策略组�?
+    - 完整的绩效评�?
+    - 详细的交易记�?
     """
     
     def __init__(self, 
@@ -51,12 +58,12 @@ class RiceQuantCTABacktester:
                  end_date: str = '2024-12-31',
                  logger: logging.Logger = None):
         """
-        初始化回测引�?
+        初始化回测引�?
         
         Args:
             api_key: 米筐API密钥
-            initial_capital: 初始资金 (默认1000�?
-            start_date: 回测开始日�?
+            initial_capital: 初始资金 (默认1000�?
+            start_date: 回测开始日�?
             end_date: 回测结束日期
         """
         self.logger = logger or logging.getLogger(__name__)
@@ -72,14 +79,14 @@ class RiceQuantCTABacktester:
         self.provider = RiceQuantCTADataProvider(api_key=api_key)
         self.data_manager = CTADatamanager(self.provider)
         
-        # 初始化策�?
+        # 初始化策�?
         self.strategies = {
             'TSMOM': TSMOMStrategy(),
             'TrendFollowing': TrendFollowingStrategy(),
             'Carry': CarryStrategy()
         }
         
-        # 评估�?
+        # 评估�?
         self.evaluator = CTAEvaluator(risk_free_rate=0.03)
         
         # 回测数据存储
@@ -94,21 +101,21 @@ class RiceQuantCTABacktester:
             symbols: 品种代码列表
             use_cache: 是否使用本地缓存
         """
-        self.logger.info(f"\n加载市场数据: {len(symbols)}个品�?)
+        self.logger.info(f"\n加载市场数据: {len(symbols)}个品�?)
         self.logger.info(f"时间区间: {self.start_date} ~ {self.end_date}")
         
         self.market_data = self.data_manager.load_data(
             symbols, self.start_date, self.end_date, use_cache
         )
         
-        # 获取共同交易�?
+        # 获取共同交易�?
         all_dates = set()
         for df in self.market_data.values():
             all_dates.update(df.index)
         
         self.trading_dates = sorted(list(all_dates))
         
-        self.logger.info(f"�?数据加载完成: {len(self.market_data)}个品�? {len(self.trading_dates)}个交易日")
+        self.logger.info(f"�?数据加载完成: {len(self.market_data)}个品�? {len(self.trading_dates)}个交易日")
     
     def run_single_strategy(self, 
                            strategy_name: str,
@@ -119,18 +126,18 @@ class RiceQuantCTABacktester:
         
         Args:
             strategy_name: 策略名称
-            rebalance_freq: 调仓频率 (交易�?
-            position_size: 单品种仓位上�?
+            rebalance_freq: 调仓频率 (交易�?
+            position_size: 单品种仓位上�?
         """
         strategy = self.strategies.get(strategy_name)
         if not strategy:
             raise ValueError(f"未知策略: {strategy_name}")
         
         self.logger.info(f"\n{'='*70}")
-        self.logger.info(f"开始回�? {strategy_name}")
+        self.logger.info(f"开始回�? {strategy_name}")
         self.logger.info(f"{'='*70}")
         
-        # 回测状�?
+        # 回测状�?
         capital = self.initial_capital
         positions = {}  # symbol -> {'quantity': int, 'cost': float}
         portfolio_values = []
@@ -143,7 +150,7 @@ class RiceQuantCTABacktester:
                 # 生成信号
                 signals = strategy.generate_signals(self.market_data, current_date)
                 
-                # 筛选有效信�?
+                # 筛选有效信�?
                 valid_signals = [s for s in signals if abs(s.target_position) > 0.1]
                 
                 if valid_signals:
@@ -163,7 +170,7 @@ class RiceQuantCTABacktester:
                         
                         price = df.loc[current_date, 'close']
                         
-                        # 计算目标持仓价�?
+                        # 计算目标持仓价�?
                         weight = abs(signal.target_position) / total_target if total_target > 0 else 0
                         target_value = capital * position_size * weight * np.sign(signal.target_position)
                         
@@ -196,7 +203,7 @@ class RiceQuantCTABacktester:
                             elif symbol in positions:
                                 del positions[symbol]
             
-            # 计算当日组合价�?
+            # 计算当日组合价�?
             total_value = capital
             for symbol, pos in positions.items():
                 if symbol in self.market_data and current_date in self.market_data[symbol].index:
@@ -214,7 +221,7 @@ class RiceQuantCTABacktester:
             
             # 定期输出
             if i % 50 == 0 or i == len(self.trading_dates) - 1:
-                self.logger.info(f"  [{current_date}] 净�? ${total_value:,.0f} 持仓: {len(positions)}")
+                self.logger.info(f"  [{current_date}] 净�? ${total_value:,.0f} 持仓: {len(positions)}")
         
         # 生成结果
         df_portfolio = pd.DataFrame(portfolio_values)
@@ -233,7 +240,7 @@ class RiceQuantCTABacktester:
                                    strategy_weights: Dict[str, float] = None,
                                    rebalance_freq: int = 5) -> Dict:
         """
-        运行等权多策略组合回�?
+        运行等权多策略组合回�?
         """
         if strategy_weights is None:
             strategy_weights = {name: 1/len(self.strategies) for name in self.strategies}
@@ -257,20 +264,20 @@ class RiceQuantCTABacktester:
             
             result = self.run_single_strategy(name, rebalance_freq)
             
-            # 获取收益率序�?
+            # 获取收益率序�?
             returns = result['portfolio_values'].set_index('date')['daily_return'].fillna(0)
             sub_returns[name] = returns
             
             self.initial_capital = original_capital
         
-        # 合并各策略收�?
+        # 合并各策略收�?
         combined_returns = pd.Series(0.0, index=self.trading_dates)
         
         for name, returns in sub_returns.items():
             weight = strategy_weights[name]
             combined_returns += returns * weight
         
-        # 计算组合净�?
+        # 计算组合净�?
         combined_values = (1 + combined_returns).cumprod() * self.initial_capital
         
         df_portfolio = pd.DataFrame({
@@ -289,12 +296,12 @@ class RiceQuantCTABacktester:
     
     def run_meta_model_portfolio(self, rebalance_freq: int = 5) -> Dict:
         """
-        运行元模型动态分配组�?
+        运行元模型动态分配组�?
         
-        根据市场环境动态调整策略权�?
+        根据市场环境动态调整策略权�?
         """
         self.logger.info(f"\n{'='*70}")
-        self.logger.info(f"开始元模型动态分配回�?)
+        self.logger.info(f"开始元模型动态分配回�?)
         self.logger.info(f"{'='*70}")
         
         allocator = MetaModelAllocator(list(self.strategies.values()))
@@ -312,7 +319,7 @@ class RiceQuantCTABacktester:
                 
                 signals = strategy.generate_signals(self.market_data, current_date)
                 
-                # 简�? 用信号计算当日收�?
+                # 简�? 用信号计算当日收�?
                 daily_ret = 0
                 if signals:
                     for s in signals:
@@ -331,7 +338,7 @@ class RiceQuantCTABacktester:
             
             strategy_returns[name] = pd.Series(returns, index=self.trading_dates)
         
-        # 动态组�?
+        # 动态组�?
         portfolio_values = []
         current_weights = {name: 1/len(self.strategies) for name in self.strategies}
         
@@ -346,7 +353,7 @@ class RiceQuantCTABacktester:
             
             # 每月更新权重
             if i % 20 == 0 and i > 20:
-                # 检测市场环�?
+                # 检测市场环�?
                 regime = allocator.detect_regime(self.market_data, current_date)
                 
                 # 更新权重
@@ -355,7 +362,7 @@ class RiceQuantCTABacktester:
                 allocator.update_weights(regime, recent_returns)
                 current_weights = allocator.weights.copy()
                 
-                self.logger.info(f"  [{current_date}] 状�? {regime.value}, "
+                self.logger.info(f"  [{current_date}] 状�? {regime.value}, "
                                f"权重: TSMOM={current_weights.get('TSMOM',0):.2f}, "
                                f"Trend={current_weights.get('TrendFollowing',0):.2f}, "
                                f"Carry={current_weights.get('Carry',0):.2f}")
@@ -430,16 +437,16 @@ class RiceQuantCTABacktester:
 
 
 # ============================================================
-# 主程�?
+# 主程�?
 # ============================================================
 def main():
     """
-    米筐CTA回测主程�?
+    米筐CTA回测主程�?
     
     演示如何使用米筐数据进行CTA策略回测
     """
     
-    # 米筐API密钥 (用户提供�?
+    # 米筐API密钥 (用户提供�?
     API_KEY = "Mg8lEL3dGgIyxrwc2rNsqVneytgqpSq4n0h4S8M-XQnZ9domysurqc3Lh1NlmAwAKSBTUr5qwFJ-aPEeFfR3L2rK5pq-HddOdS6vDBfDv187cVUdC9sejifx7V1lQjQWRm19YVrhx1poB-uThWtc3F6kzslu4cn9myNayWNzfo8=OPgej69FUSOnYfosbz62TAjuWXo_85kHZiUQUZCjXl78r0HUqN3HGJBXF7CIsXCHAAsQ7xieZzwD-_G8vn_3pkfFaAy2pLrhjk4BSLkVcNDwfPJovTa4hxIKfGAZ5G_HtNIHSUZcHnenxQnZljuvnzsixT3G-3Gr4UunAz9-72A="
     
     print("="*80)
@@ -447,29 +454,29 @@ def main():
     print("="*80)
     print()
     print("本演示使用米筐真实期货数据进行CTA策略回测")
-    print("支持的策�?")
+    print("支持的策�?")
     print("  1. TSMOM (时间序列动量)")
     print("  2. Trend Following (趋势跟踪)")
     print("  3. Carry (期限结构)")
-    print("  4. Meta-Model Portfolio (元模型动态分�?")
+    print("  4. Meta-Model Portfolio (元模型动态分�?")
     print()
     
-    # 初始化回测引�?
+    # 初始化回测引�?
     backtester = RiceQuantCTABacktester(
         api_key=API_KEY,
-        initial_capital=10_000_000,  # 1000万初始资�?
+        initial_capital=10_000_000,  # 1000万初始资�?
         start_date='2023-01-01',
         end_date='2024-12-31'
     )
     
-    # 选择交易品种 (多板块分�?
+    # 选择交易品种 (多板块分�?
     symbols = [
         'RB', 'HC',    # 黑色
         'CU', 'AL',    # 有色
         'SC',          # 能源
         'TA', 'MA',    # 化工
-        'M', 'CF',     # 农产�?
-        'AU',          # 贵金�?
+        'M', 'CF',     # 农产�?
+        'AU',          # 贵金�?
         'IF',          # 股指
     ]
     
@@ -490,7 +497,7 @@ def main():
     
     # 2. 等权组合回测
     print("\n" + "="*80)
-    print("第二阶段: 多策略组合回�?)
+    print("第二阶段: 多策略组合回�?)
     print("="*80)
     
     equal_weight_result = backtester.run_equal_weight_portfolio(
@@ -498,9 +505,9 @@ def main():
     )
     all_results.append(equal_weight_result)
     
-    # 3. 元模型动态分配回�?
+    # 3. 元模型动态分配回�?
     print("\n" + "="*80)
-    print("第三阶段: 元模型动态分配回�?)
+    print("第三阶段: 元模型动态分配回�?)
     print("="*80)
     
     meta_result = backtester.run_meta_model_portfolio(rebalance_freq=5)
@@ -519,29 +526,29 @@ def main():
     # 总结
     print()
     print("="*80)
-    print("总结与建�?)
+    print("总结与建�?)
     print("="*80)
     print()
-    print("【回测结果摘要�?)
+    print("【回测结果摘要�?)
     print()
     
     for m in metrics_list:
         print(f"  {m.strategy_name:20s}: "
               f"年化收益={m.annualized_return*100:6.2f}%, "
               f"夏普={m.sharpe_ratio:5.2f}, "
-              f"最大回�?{m.max_drawdown*100:6.2f}%, "
+              f"最大回�?{m.max_drawdown*100:6.2f}%, "
               f"信息比率={m.information_ratio:5.2f}")
     
     print()
-    print("【关键发现�?)
+    print("【关键发现�?)
     print("  1. 单一策略在不同市场环境下表现各异")
     print("  2. 多策略组合可降低回撤，提高风险调整后收益")
     print("  3. 元模型动态分配可根据市场环境优化权重")
     print()
-    print("【实盘建议�?)
+    print("【实盘建议�?)
     print("  1. 使用米筐实时数据进行信号计算")
-    print("  2. 严格执行风控系统(单品种≤10%, 板块�?0%)")
-    print("  3. 定期(月度)回顾策略表现，调整参�?)
+    print("  2. 严格执行风控系统(单品种≤10%, 板块�?0%)")
+    print("  3. 定期(月度)回顾策略表现，调整参�?)
     print("  4. 考虑交易费用和滑点的影响")
     print()
     print("="*80)

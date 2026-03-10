@@ -23,6 +23,11 @@ from dataclasses import dataclass
 from typing import Dict, List, Optional, Tuple
 import logging
 
+# 路径设置
+import os
+_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(_DIR, '..', 'data_providers'))
+
 from TradierDataProvider import TradierDataProvider
 
 

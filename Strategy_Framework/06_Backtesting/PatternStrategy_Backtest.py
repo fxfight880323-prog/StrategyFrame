@@ -25,8 +25,13 @@ from typing import Dict, List, Optional, Tuple
 from enum import Enum
 import logging
 
+# 路径设置
+import os
+_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(_DIR, '..', '03_Stock_Selection'))
+
 from TechnicalPatternAnalyzer import (
-    TechnicalPatternAnalyzer, PatternBatchAnalyzer, 
+    TechnicalPatternAnalyzer, PatternBatchAnalyzer,
     SignalStrength, PatternType, PriceActionSignal
 )
 

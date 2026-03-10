@@ -8,6 +8,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from datetime import date
+# 路径设置
+import sys
+import os
+_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(_DIR, '..', '..', 'Strategy_Framework', '02_Sector_Analysis'))
+
 from CTA_Earnings_Sector_Analysis import (
     CTAEarningsCrossAnalyzer, MockDataProvider, SP500_SECTORS, setup_logger
 )

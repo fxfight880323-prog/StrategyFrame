@@ -26,8 +26,9 @@ import json
 from CTA_FLP_Strategy import CTATrendEngine, Signal, CTA_CONFIG, UNIVERSE
 
 # 导入监视器
-import sys
-sys.path.insert(0, '..')
+import os
+_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(_DIR, '..', '..', '06_Backtesting'))
 from BacktestMonitor import BacktestMonitor, MonitorLevel
 
 

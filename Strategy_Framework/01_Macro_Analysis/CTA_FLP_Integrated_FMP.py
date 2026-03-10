@@ -20,6 +20,11 @@ from datetime import date, timedelta
 from typing import Dict, List, Optional
 from dataclasses import dataclass, field
 
+# 路径设置
+import os
+_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(_DIR, '..', 'data_providers'))
+
 # 导入 FMP 数据提供器和策略模块
 from FMPDataProvider import FMPDataProvider, CTADataAdapter, FLPDataAdapter
 from CTA_FMP_Strategy import CTAEngineFMP

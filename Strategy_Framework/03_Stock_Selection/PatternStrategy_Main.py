@@ -32,8 +32,13 @@ import argparse
 import logging
 import os
 
+# 路径设置
+_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(_DIR, '..', '06_Backtesting'))
+sys.path.insert(0, os.path.join(_DIR, '..', '07_Reporting'))
+
 from TechnicalPatternAnalyzer import (
-    TechnicalPatternAnalyzer, 
+    TechnicalPatternAnalyzer,
     PatternBatchAnalyzer,
     DEFAULT_STOCKS,
     SignalStrength

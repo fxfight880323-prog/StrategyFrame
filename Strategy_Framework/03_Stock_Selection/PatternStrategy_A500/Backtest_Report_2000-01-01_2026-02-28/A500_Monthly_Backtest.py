@@ -35,7 +35,8 @@ import os
 from A500_Pattern_Analyzer import PatternAnalyzer, A500DataProvider
 
 # 导入监视器
-sys.path.insert(0, '..')
+_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.join(_DIR, '..', '..', '..', '06_Backtesting'))
 from BacktestMonitor import BacktestMonitor, MonitorLevel
 
 
