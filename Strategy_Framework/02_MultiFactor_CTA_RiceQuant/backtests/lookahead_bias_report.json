@@ -1,0 +1,67 @@
+{
+  "strategy_name": "Quality+LowVol (Dual Market)",
+  "inspection_date": "2026-03-11 06:46:34",
+  "overall_risk": "FAIL",
+  "tests": [
+    {
+      "test_name": "Timestamp Consistency",
+      "risk_level": "PASS",
+      "description": "All 83 signal→trade→return sequences are properly ordered",
+      "details": {
+        "violations": "0",
+        "total_checks": "166",
+        "violation_rate": "0.0"
+      },
+      "recommendation": ""
+    },
+    {
+      "test_name": "Signal-Return Causality",
+      "risk_level": "FAIL",
+      "description": "Signal correlates MORE with past returns (0.1856) than future returns (0.0427) — likely lookahead bias",
+      "details": {
+        "corr_signal_vs_future_return": "0.0427434365724152",
+        "corr_signal_vs_past_return": "0.1855787958434659",
+        "n_observations": "81"
+      },
+      "recommendation": "Check if factor data uses report date instead of announcement date"
+    },
+    {
+      "test_name": "Random Date Shift",
+      "risk_level": "PASS",
+      "description": "Return retains 100% after shift — robust to timing changes",
+      "details": {
+        "original_ann_return": "0.08859292138008867",
+        "avg_shifted_ann_return": "0.08859292138008867",
+        "decay_ratio": "1.0",
+        "n_shifts": "3"
+      },
+      "recommendation": ""
+    },
+    {
+      "test_name": "Data Availability Audit",
+      "risk_level": "FAIL",
+      "description": "252/252 (100.0%) factor observations used before they were publicly available",
+      "details": {
+        "total_checks": "252",
+        "violations": "252",
+        "violation_rate": "1.0",
+        "report_lag_assumed_days": "90",
+        "sample_violations": "[{'factor': 'roe', 'signal_date': '2018-01-31', 'data_date': '2018-01-31', 'earliest_available': '2017-11-02'}, {'factor': 'roe', 'signal_date': '2018-02-28', 'data_date': '2018-02-28', 'earliest_available': '2017-11-30'}, {'factor': 'roe', 'signal_date': '2018-03-31', 'data_date': '2018-03-31', 'earliest_available': '2017-12-31'}]"
+      },
+      "recommendation": "Use announcement date (公告日) instead of report date (报告期)"
+    },
+    {
+      "test_name": "Return Decay Analysis",
+      "risk_level": "PASS",
+      "description": "IC values are low or flat — no strong decay pattern detected",
+      "details": {
+        "IC_lag_1d": "0",
+        "IC_lag_2d": "0",
+        "IC_lag_5d": "0",
+        "IC_lag_10d": "0",
+        "IC_lag_20d": "0"
+      },
+      "recommendation": ""
+    }
+  ]
+}

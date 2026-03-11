@@ -1,0 +1,96 @@
+{
+  "A-Stock": {
+    "A-Stock_quality": {
+      "factor_name": "A-Stock_quality",
+      "start_date": "2018-01-01",
+      "end_date": "2024-12-31",
+      "total_return": 0.25922573514900704,
+      "annualized_return": 0.033476279260941544,
+      "volatility": 0.008137635314462951,
+      "sharpe_ratio": 4.113760074925505,
+      "information_ratio": 4.113760074925505,
+      "sortino_ratio": 18.12793386174137,
+      "max_drawdown": -0.0020491814908955145,
+      "calmar_ratio": 16.3364150074926,
+      "num_stocks_held": 0,
+      "turnover": 0.41626770565614946
+    },
+    "A-Stock_lowvol": {
+      "factor_name": "A-Stock_lowvol",
+      "start_date": "2018-01-01",
+      "end_date": "2024-12-31",
+      "total_return": 1.1270792768182023,
+      "annualized_return": 0.11384879536886539,
+      "volatility": 0.019283352204564976,
+      "sharpe_ratio": 5.903993982016975,
+      "information_ratio": 5.903993982016975,
+      "sortino_ratio": 1138.4879536886538,
+      "max_drawdown": 0.0,
+      "calmar_ratio": 0,
+      "num_stocks_held": 0,
+      "turnover": 0.16352071321338926
+    },
+    "A-Stock_composite": {
+      "factor_name": "A-Stock_composite",
+      "start_date": "2018-01-01",
+      "end_date": "2024-12-31",
+      "total_return": 1.2493760430377843,
+      "annualized_return": 0.12277977454626376,
+      "volatility": 0.023242590635455234,
+      "sharpe_ratio": 5.282533968436818,
+      "information_ratio": 5.282533968436818,
+      "sortino_ratio": 20.301396753876727,
+      "max_drawdown": -0.005370048664701317,
+      "calmar_ratio": 22.863810407031533,
+      "num_stocks_held": 0,
+      "turnover": 0.4017393571783382
+    }
+  },
+  "US-Stock": {
+    "US-Stock_quality": {
+      "factor_name": "US-Stock_quality",
+      "start_date": "2018-01-01",
+      "end_date": "2024-12-31",
+      "total_return": 0.11689405375469564,
+      "annualized_return": 0.015918465290964967,
+      "volatility": 0.020258167436077744,
+      "sharpe_ratio": 0.7857801225700106,
+      "information_ratio": 0.7857801225700106,
+      "sortino_ratio": 1.774103309893704,
+      "max_drawdown": -0.03309883925016675,
+      "calmar_ratio": 0.48093726703376066,
+      "num_stocks_held": 0,
+      "turnover": 0.42588657103266125
+    },
+    "US-Stock_lowvol": {
+      "factor_name": "US-Stock_lowvol",
+      "start_date": "2018-01-01",
+      "end_date": "2024-12-31",
+      "total_return": 0.1524882360529869,
+      "annualized_return": 0.020481684468421024,
+      "volatility": 0.01262585717749866,
+      "sharpe_ratio": 1.6222015012907585,
+      "information_ratio": 1.6222015012907585,
+      "sortino_ratio": 4.764611039326029,
+      "max_drawdown": -0.008252732182045424,
+      "calmar_ratio": 2.4818065116641987,
+      "num_stocks_held": 0,
+      "turnover": 0.18330381113529792
+    },
+    "US-Stock_composite": {
+      "factor_name": "US-Stock_composite",
+      "start_date": "2018-01-01",
+      "end_date": "2024-12-31",
+      "total_return": 0.13335351013405772,
+      "annualized_return": 0.018043850415531137,
+      "volatility": 0.01820183764337385,
+      "sharpe_ratio": 0.9913202594738985,
+      "information_ratio": 0.9913202594738985,
+      "sortino_ratio": 1.7556108240515607,
+      "max_drawdown": -0.01941003011974236,
+      "calmar_ratio": 0.9296147560934668,
+      "num_stocks_held": 0,
+      "turnover": 0.40260394874939326
+    }
+  }
+}

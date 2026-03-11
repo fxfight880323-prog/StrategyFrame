@@ -158,3 +158,79 @@ CACHE_CONFIG = {
     'cache_dir': './data_cache',
     'expire_days': 7,
 }
+
+
+# ============================================================
+# 全局配置实例
+# ============================================================
+class _GlobalConfig(StrategyConfig):
+    """扩展StrategyConfig，添加全局属性"""
+
+    # 因子模型
+    STOCK_UNIVERSE: str = 'hs300'
+    FACTOR_WEIGHTS: Dict[str, float] = field(default_factory=lambda: {
+        'EP': 0.15, 'BP': 0.15, 'SP': 0.10, 'CFP': 0.10, 'DP': 0.10,
+        'MOM_12_1': 0.20, 'MOM_6_1': 0.10, 'MOM_3_1': 0.10,
+    })
+
+    # 资金和仓位
+    INITIAL_CAPITAL: float = 10_000_000
+    STOCK_ALLOCATION: float = 0.70
+    CTA_ALLOCATION: float = 0.30
+
+    # 时间
+    START_DATE: str = '2014-01-01'
+    END_DATE: str = '2024-01-01'
+    REBALANCE_DAY: int = 0  # 周一
+
+    # CTA品种
+    CTA_SYMBOLS: List[str] = field(default_factory=lambda: [
+        'RB', 'CU', 'SC', 'TA', 'IF', 'IC', 'IH', 'AL', 'M', 'Y',
+    ])
+
+
+# 由于 _GlobalConfig 也是 dataclass 子类，需要用普通类代替
+class GlobalConfig:
+    """全局配置单例"""
+    def __init__(self):
+        # 继承 StrategyConfig 默认值
+        self._base = StrategyConfig()
+
+        # 因子模型
+        self.STOCK_UNIVERSE = 'hs300'
+        self.FACTOR_WEIGHTS = {
+            'EP': 0.15, 'BP': 0.15, 'SP': 0.10, 'CFP': 0.10, 'DP': 0.10,
+            'MOM_12_1': 0.20, 'MOM_6_1': 0.10, 'MOM_3_1': 0.10,
+        }
+
+        # 资金和仓位
+        self.INITIAL_CAPITAL = 10_000_000
+        self.STOCK_ALLOCATION = 0.70
+        self.CTA_ALLOCATION = 0.30
+
+        # 时间
+        self.START_DATE = '2014-01-01'
+        self.END_DATE = '2024-01-01'
+        self.REBALANCE_DAY = 0  # 周一
+
+        # CTA品种
+        self.CTA_SYMBOLS = [
+            'RB', 'CU', 'SC', 'TA', 'IF', 'IC', 'IH', 'AL', 'M', 'Y',
+        ]
+
+        # 继承基类属性
+        self.factor_universe = self._base.factor_universe
+        self.value_factor_weights = self._base.value_factor_weights
+        self.momentum_lookback = self._base.momentum_lookback
+        self.momentum_skip = self._base.momentum_skip
+        self.cta_symbols = self._base.cta_symbols
+        self.cta_lookback = self._base.cta_lookback
+        self.factor_weight = self._base.factor_weight
+        self.cta_weight = self._base.cta_weight
+        self.rebalance_freq = self._base.rebalance_freq
+        self.max_position_pct = self._base.max_position_pct
+        self.max_drawdown_limit = self._base.max_drawdown_limit
+        self.stop_loss_pct = self._base.stop_loss_pct
+
+
+CONFIG = GlobalConfig()
