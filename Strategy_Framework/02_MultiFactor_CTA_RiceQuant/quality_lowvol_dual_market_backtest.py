@@ -275,9 +275,10 @@ class RiceQuantDataProvider:
 
     def _mock_price_data(self, symbols, start_date, end_date) -> pd.DataFrame:
         dates = pd.date_range(start=start_date, end=end_date, freq='B')
-        np.random.seed(hash(str(symbols[:3])) % 2**31)
         prices = pd.DataFrame(index=dates)
         for sym in symbols[:100]:  # 限制模拟数量
+            # 每只股票独立seed，避免跨截面伪相关
+            np.random.seed(hash(sym + start_date) % 2**31)
             ret = np.random.normal(0.0003, 0.018, len(dates))
             prices[sym] = 100 * np.cumprod(1 + ret)
         return prices
@@ -496,9 +497,10 @@ class TushareUSDataProvider:
 
     def _mock_price_data(self, symbols, start_date, end_date) -> pd.DataFrame:
         dates = pd.date_range(start=start_date, end=end_date, freq='B')
-        np.random.seed(hash(str(symbols[:3])) % 2**31)
         prices = pd.DataFrame(index=dates)
         for sym in symbols[:100]:
+            # 每只股票独立seed，避免跨截面伪相关
+            np.random.seed(hash(sym + start_date) % 2**31)
             # 美股长期正漂移略高
             ret = np.random.normal(0.0004, 0.015, len(dates))
             prices[sym] = 100 * np.cumprod(1 + ret)
@@ -1040,6 +1042,82 @@ def run_usstock_only(
     results = {}
     for factor in ['quality', 'lowvol', 'composite']:
         results[factor] = bt.backtest_factor(factor, start_date, end_date)
+    return results
+
+
+def run_with_local_data(
+    start_date: str = "2018-01-01",
+    end_date: str = "2024-12-31",
+    universe: str = 'hs300',
+    save_results: bool = True,
+) -> Dict[str, FactorBacktestResult]:
+    """
+    使用本地缓存数据回测 (先运行 data_downloader.py --download-all)
+
+    数据源优先级:
+    1. 本地缓存 (data_cache/) — 来自RiceQuant或AKShare
+    2. 模拟数据 (当缓存不存在时)
+
+    Example:
+        # 先下载数据
+        # python data_downloader.py --download-all
+
+        # 然后回测
+        >>> results = run_with_local_data('2018-01-01', '2024-12-31')
+    """
+    from data_downloader import LocalDataProvider
+
+    logger.info("=" * 70)
+    logger.info("Quality+LowVol Backtest (Local Data)")
+    logger.info("=" * 70)
+
+    local = LocalDataProvider()
+    status = local.check_data_status()
+    logger.info(f"本地数据: {status}")
+
+    if status.get('a_stock_prices', 0) == 0:
+        logger.warning("未找到本地A股数据! 请先运行: python data_downloader.py --download-all")
+        logger.warning("将使用模拟数据...")
+
+    config = MarketConfig(
+        market=Market.A_STOCK, universe_name=universe,
+        benchmark_name='沪深300' if universe == 'hs300' else '中证500',
+        currency='CNY', trading_days_per_year=244,
+        commission_rate=0.0003, slippage=0.001,
+        quality_factors=['roe', 'roa', 'gross_profit_margin'],
+        start_date=start_date, end_date=end_date,
+    )
+
+    unified = UnifiedDataProvider(local, config)
+    builder = DualMarketQualityLowVolBuilder(unified)
+    bt = SingleMarketBacktester(unified, builder, config)
+
+    results = {}
+    for factor in ['quality', 'lowvol', 'composite']:
+        logger.info(f"回测 {factor.upper()}...")
+        results[factor] = bt.backtest_factor(factor, start_date, end_date)
+
+    # 打印结果
+    print("\n" + "=" * 90)
+    print(f"Quality+LowVol on {universe.upper()} (Local Data)")
+    print("=" * 90)
+    print(f"{'Factor':<12} {'Ann Return':<12} {'Vol':<12} {'Sharpe':<10} {'Max DD':<10} {'Calmar':<10}")
+    print("-" * 90)
+    for name, r in results.items():
+        print(f"{name:<12} {r.annualized_return*100:>10.2f}% {r.volatility*100:>10.2f}% "
+              f"{r.sharpe_ratio:>9.2f} {r.max_drawdown*100:>9.2f}% {r.calmar_ratio:>9.2f}")
+    print("=" * 90)
+
+    if save_results:
+        os.makedirs("backtests", exist_ok=True)
+        data = {name: r.to_dict() for name, r in results.items()}
+        with open("backtests/quality_lowvol_local_data.json", 'w', encoding='utf-8') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+
+        viz = ValMomVisualizer()
+        viz.plot_equity_curves(results, "backtests/quality_lowvol_local_equity.png")
+        viz.plot_drawdown(results, "backtests/quality_lowvol_local_drawdown.png")
+
     return results
 
 
