@@ -1,0 +1,22 @@
+{
+  "date": "2026-03-17",
+  "spy_close": 670.7899780273438,
+  "rsi": 31.8,
+  "vix": 22.3700008392334,
+  "drawdown_pct": -3.55,
+  "bb_pct": 0.223,
+  "down_streak": 0,
+  "trend": "UP",
+  "ma200": 657.27,
+  "vol_21": 12.0,
+  "signals": {
+    "losing_streak": 1.0,
+    "rsi_dip": 1.0,
+    "drawdown_dip": 1.2,
+    "bollinger_dip": 1.0,
+    "vix_spike": 1.0,
+    "trend_filtered": 1.3,
+    "composite": 1.083
+  },
+  "recommendation": "MILD DIP"
+}
