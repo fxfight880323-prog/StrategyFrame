@@ -1,0 +1,289 @@
+	import zipfile
+	import os
+	# 定义要生成的压缩包名称
+	ZIP_NAME = "GLM_CTA_Strategies.zip"
+	# 定义文件结构及对应的代码内容
+	FILE_STRUCTURES = {
+	    "CTA/run_glm_cta.py": '''"""
+	GLM_CTA - Main Execution Script
+	运行入口：在项目根目录执行 python CTA/run_glm_cta.py
+	"""
+	import sys
+	import os
+	sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+	from CTA.GLM_CTA.data_loader.tushare_loader import TushareFuturesDataLoader
+	from CTA.GLM_CTA.strategies.five_strategies import (
+	    VolatilityManagedTrend, AdaptiveLookbackMomentum, 
+	    MultiTimeframeMomentum, RiskParityCTA, MLEnhancedTrend
+	)
+	from CTA.GLM_CTA.engine.backtester import CTABacktester, plot_results
+	def main():
+	    print("=" * 60)
+	    print(" GLM_CTA Framework Initialization ")
+	    print("=" * 60)
+	    API_KEY = "6e2bea2e792967b0b7c39361d2257c952cf5bb8a019935b905f9aedb"
+	    loader = TushareFuturesDataLoader(API_KEY)
+	    returns_df, prices_df, vol_df = loader.get_continuous_data('20180101', '20240101')
+	    if returns_df is None: return
+	    bt = CTABacktester(returns_df, prices_df)
+	    res = {}
+	    N = len(returns_df.columns)
+	    strats = [
+	        (VolatilityManagedTrend(), 'managed_position'),
+	        (AdaptiveLookbackMomentum(), 'position'),
+	        (MultiTimeframeMomentum(), 'position')
+	    ]
+	    for strat, col in strats:
+	        print(f"Running {strat.name}...")
+	        pos = pd.DataFrame(index=returns_df.index, columns=returns_df.columns, data=0.0)
+	        for asset in returns_df.columns:
+	            sig = strat.generate_signals(prices_df[asset], returns_df[asset])
+	            pos[asset] = sig[col]
+	        pos = pos / vol_df.clip(lower=0.10)
+	        pos = pos.clip(-2, 2) / N * 3
+	        res[strat.name] = bt.run_portfolio(pos)
+	    print("Running GLM_Risk_Parity...")
+	    s4 = RiskParityCTA()
+	    res[s4.name] = bt.run_portfolio(s4.generate_signals(returns_df))
+	    print("Running GLM_ML_Trend...")
+	    s5 = MLEnhancedTrend()
+	    ex_asset = 'Rebar'
+	    if ex_asset in returns_df.columns:
+	        sig5 = s5.generate_signals(prices_df[ex_asset], returns_df[ex_asset])
+	        vs = 0.10 / returns_df[ex_asset].rolling(60).std().clip(lower=0.05).shift(1)
+	        res[s5.name] = bt.run_single(sig5['position'] * vs.clip(upper=3), ex_asset)
+	    comb_ret = pd.DataFrame({k: v['returns'] for k, v in list(res.items())[:4]}).mean(axis=1)
+	    res['Combined_GLM_Portfolio'] = {
+	        'equity': (1 + comb_ret).cumprod() * bt.cap,
+	        'returns': comb_ret,
+	        'metrics': bt._calc(comb_ret)
+	    }
+	    print("\\n" + "=" * 60)
+	    mdf = pd.DataFrame({k: v['metrics'] for k, v in res.items()}).T
+	    print(mdf.round(4).to_string())
+	    plot_results(res)
+	if __name__ == "__main__":
+	    main()
+	''',
+	    "CTA/__init__.py": "",
+	    "CTA/GLM_CTA/__init__.py": "",
+	    "CTA/GLM_CTA/strategies/__init__.py": "",
+	    "CTA/GLM_CTA/data_loader/__init__.py": "",
+	    "CTA/GLM_CTA/engine/__init__.py": "",
+	    "CTA/GLM_CTA/data_loader/tushare_loader.py": '''"""
+	GLM_CTA - Data Loader Module
+	基于 Tushare Pro 接口的中国商品期货真实数据加载与复权引擎
+	"""
+	import numpy as np
+	import pandas as pd
+	import tushare as ts
+	import time
+	import warnings
+	warnings.filterwarnings('ignore')
+	class TushareFuturesDataLoader:
+	    def __init__(self, api_key):
+	        ts.set_token(api_key)
+	        self.pro = ts.pro_api()
+	        self.commodities = {
+	            'Gold': 'AU', 'Silver': 'AG', 'Copper': 'CU', 'Rebar': 'RB', 
+	            'IronOre': 'I', 'Oil': 'SC', 'Meal': 'M', 'Coke': 'J', 'PP': 'PP', 'Corn': 'C'
+	        }
+	    def get_continuous_data(self, start_date='20180101', end_date='20240101'):
+	        print("[GLM_CTA] 正在获取主力合约映射表...")
+	        try:
+	            df_map_all = self.pro.fut_mapping(type='D')
+	        except Exception as e:
+	            print(f"获取映射表失败: {e}"); return None, None, None
+	        prices_dict = {}
+	        for name, symbol in self.commodities.items():
+	            print(f"-> 拼接复权 {name} ({symbol})...")
+	            try:
+	                df_map = df_map_all[df_map_all['ts_code'].str.startswith(symbol)].copy()
+	                df_map = df_map[(df_map['trade_date'] >= start_date) & (df_map['trade_date'] <= end_date)].sort_values('trade_date')
+	                if df_map.empty: continue
+	                codes_str = ",".join(df_map['ts_code'].unique().tolist())
+	                time.sleep(0.3)
+	                df_daily = self.pro.fut_daily(ts_code=codes_str, start_date=start_date, end_date=end_date)
+	                df_merged = pd.merge(df_map[['trade_date', 'ts_code']], df_daily[['trade_date', 'ts_code', 'close']], on=['trade_date', 'ts_code'], how='left')
+	                df_merged = df_merged.sort_values('trade_date').drop_duplicates(subset=['trade_date'], keep='first')
+	                df_merged['close'] = pd.to_numeric(df_merged['close']).dropna()
+	                if len(df_merged) < 100: continue
+	                # 核心前复权逻辑
+	                adj_factors = [1.0] * len(df_merged)
+	                for i in range(len(df_merged) - 1, 0, -1):
+	                    if df_merged.iloc[i]['ts_code'] != df_merged.iloc[i-1]['ts_code']:
+	                        ratio = df_merged.iloc[i]['close'] / df_merged.iloc[i-1]['close']
+	                        for j in range(i): adj_factors[j] *= ratio
+	                prices_dict[name] = df_merged.set_index('trade_date')['close'] * adj_factors
+	            except Exception as e:
+	                print(f"   获取 {name} 失败: {e}")
+	        if not prices_dict: return None, None, None
+	        prices_df = pd.DataFrame(prices_dict)
+	        prices_df.index = pd.to_datetime(prices_df.index).sort_index()
+	        returns_df = np.log(prices_df / prices_df.shift(1)).dropna()
+	        vol_df = returns_df.rolling(60).std() * np.sqrt(252)
+	        return returns_df, prices_df, vol_df
+	''',
+	    "CTA/GLM_CTA/strategies/five_strategies.py": '''"""
+	GLM_CTA - Strategy Core Module
+	包含5大基于学术论文的CTA策略实现
+	"""
+	import numpy as np
+	import pandas as pd
+	from sklearn.ensemble import GradientBoostingClassifier
+	from sklearn.preprocessing import StandardScaler
+	class VolatilityManagedTrend:
+	    """Paper: Moreira & Muir (2017) - Kelly推导平方根波动率缩放"""
+	    def __init__(self, lookbacks=[20, 60, 120], vol_lb=60, target_vol=0.10):
+	        self.lookbacks, self.vol_lb, self.target_vol = lookbacks, vol_lb, target_vol
+	        self.name = "GLM_Vol_Managed_Trend"
+	    def generate_signals(self, prices, returns):
+	        sig = pd.DataFrame(index=prices.index)
+	        for lb in self.lookbacks: sig[f't{lb}'] = (prices - prices.rolling(lb).mean()) / prices.rolling(lb).mean()
+	        comb = sig.mean(axis=1)
+	        rv = returns.rolling(self.vol_lb).std() * np.sqrt(252).clip(lower=0.05)
+	        vs = (self.target_vol / rv) ** 0.5 # 核心：平方根缩放
+	        return pd.DataFrame({'managed_position': np.sign(comb) * vs.clip(upper=3.0)})
+	class AdaptiveLookbackMomentum:
+	    """Paper: Huang, Li, Wang (2020) - 自适应观察期"""
+	    def __init__(self, min_lb=10, max_lb=250):
+	        self.min_lb, self.max_lb = min_lb, max_lb
+	        self.name = "GLM_Adaptive_Momentum"
+	    def generate_signals(self, prices, returns):
+	        ac = returns.rolling(60).apply(lambda x: np.corrcoef(x[:-1], x[1:])[0,1] if len(x)>10 else 0)
+	        vp = returns.rolling(60).std().rolling(252).rank(pct=True)
+	        opt_lb = self.min_lb + (0.6 * ((ac+1)/2) + 0.4 * (1-vp)) * (self.max_lb - self.min_lb)
+	        lbs = [20, 60, 120, 250]
+	        ms = pd.DataFrame({f'm{lb}': np.log(prices) - np.log(prices.shift(lb)) for lb in lbs})
+	        mom = pd.Series(0.0, index=prices.index)
+	        for i in range(len(mom)):
+	            opt = opt_lb.iloc[i]
+	            if pd.isna(opt): continue
+	            w = np.array([np.exp(-5 * abs(lb - opt) / self.max_lb) for lb in lbs]); w /= w.sum()
+	            for j, lb in enumerate(lbs): mom.iloc[i] += w[j] * ms.iloc[i, j]
+	        return pd.DataFrame({'position': np.sign(mom).fillna(0)})
+	class MultiTimeframeMomentum:
+	    """Paper: Baz et al. (2021) - 多时间框架分解"""
+	    def __init__(self):
+	        self.name = "GLM_Multi_TF_Momentum"
+	    def generate_signals(self, prices, returns=None):
+	        lp = np.log(prices)
+	        s, m, l = lp - lp.shift(20), (lp - lp.shift(60) + lp - lp.shift(120))/2, lp - lp.shift(250)
+	        norm = lambda x: (x - x.rolling(252).mean()) / x.rolling(252).std().clip(lower=0.001)
+	        comb = -0.5 * norm(s) + 1.0 * norm(m) + 0.3 * norm(l)
+	        return pd.DataFrame({'position': np.sign(comb).fillna(0)})
+	class RiskParityCTA:
+	    """Paper: Roncalli (2021) - 风险平价与预算"""
+	    def __init__(self, corr_lb=126, rebal_freq=21):
+	        self.corr_lb, self.rebal_freq = corr_lb, rebal_freq
+	        self.name = "GLM_Risk_Parity"
+	    def _erc(self, cov):
+	        n = cov.shape[0]; w = 1/np.sqrt(np.diag(cov)); w /= w.sum()
+	        for _ in range(100):
+	            pv = np.sqrt(w @ cov @ w); rc = w * (cov @ w / pv); tr = pv / n
+	            nw = w * (tr / rc.clip(lower=1e-8))
+	            if np.max(np.abs(nw - w)) < 1e-6: break
+	            w = nw / nw.sum()
+	        return w
+	    def generate_signals(self, returns):
+	        wf = pd.DataFrame(index=returns.index, columns=returns.columns, data=0.0)
+	        for date in returns.index[::self.rebal_freq]:
+	            idx = returns.index.get_loc(date)
+	            if idx < self.corr_lb: continue
+	            wr = returns.iloc[idx-self.corr_lb:idx]
+	            if wr.isna().any().any(): continue
+	            cov = 0.9 * wr.cov().values * 252 + 0.1 * np.diag(np.diag(wr.cov().values * 252))
+	            try: ew = self._erc(cov)
+	            except: ew = np.ones(cov.shape[0])/cov.shape[0]
+	            ts = np.sign(wr.sum())
+	            aw = ew * np.abs(ts); aw = np.where(ts < 0, -aw, aw)
+	            pv = np.sqrt(aw @ cov @ aw)
+	            if pv > 0: aw = aw * (0.10 / pv)
+	            ni = min(idx + self.rebal_freq, len(returns) - 1)
+	            wf.iloc[idx:ni] = aw
+	        return wf.clip(-0.15, 0.15)
+	class MLEnhancedTrend:
+	    """Paper: Krauss et al. (2017) - 机器学习增强"""
+	    def __init__(self, train_w=1000, ret_freq=63, fwd=5):
+	        self.train_w, self.ret_freq, self.fwd = train_w, ret_freq, fwd
+	        self.name = "GLM_ML_Trend"; self.scaler = StandardScaler()
+	    def generate_signals(self, prices, returns):
+	        feat = pd.DataFrame(index=prices.index)
+	        for lb in [5, 10, 20, 60, 120]:
+	            feat[f'r{lb}'] = returns.rolling(lb).sum()
+	            feat[f'v{lb}'] = returns.rolling(lb).std()
+	        for lb in [20, 60]: feat[f'ma{lb}'] = (prices - prices.rolling(lb).mean()) / prices.rolling(lb).mean()
+	        feat['acc'] = feat['r20'] - feat['r60']
+	        tgt = (returns.rolling(self.fwd).sum().shift(-self.fwd) > 0).astype(int)
+	        pred = pd.Series(index=prices.index, data=np.nan)
+	        for i in range(self.train_w, len(prices) - self.fwd, self.ret_freq):
+	            xt, yt = feat.iloc[i-self.train_w:i].values, tgt.iloc[i-self.train_w:i].values
+	            v = ~(np.isnan(xt).any(axis=1) | np.isnan(yt))
+	            if v.sum() < 100: continue
+	            xs = self.scaler.fit_transform(xt[v])
+	            mdl = GradientBoostingClassifier(n_estimators=80, max_depth=3, learning_rate=0.05, subsample=0.8, random_state=42)
+	            mdl.fit(xs, yt[v])
+	            ei = min(i + self.ret_freq, len(prices) - self.fwd)
+	            pred.iloc[i:ei] = mdl.predict_proba(self.scaler.transform(np.nan_to_num(feat.iloc[i:ei].values, nan=0)))[:, 1]
+	        pos = pd.Series(0.0, index=prices.index)
+	        pos[pred > 0.6] = 1.0; pos[pred < 0.4] = -1.0
+	        return pd.DataFrame({'position': pos})
+	''',
+	    "CTA/GLM_CTA/engine/backtester.py": '''"""
+	GLM_CTA - Backtesting & Visualization Engine
+	"""
+	import numpy as np
+	import pandas as pd
+	import matplotlib.pyplot as plt
+	plt.rcParams['font.sans-serif'] = ['SimHei', 'Arial Unicode MS']
+	plt.rcParams['axes.unicode_minus'] = False
+	class CTABacktester:
+	    def __init__(self, returns_df, prices_df, init_cap=1_000_000, cost=0.0002):
+	        self.returns, self.prices, self.cap, self.cost = returns_df, prices_df, init_cap, cost
+	    def run_portfolio(self, positions):
+	        pos = positions.reindex(self.returns.index).fillna(0)
+	        gr = (pos.shift(1) * self.returns).sum(axis=1)
+	        to = pos.diff().abs().sum(axis=1) / 2
+	        nr = gr - to * self.cost
+	        eq = (1 + nr).cumprod() * self.cap
+	        return {'equity': eq, 'returns': nr, 'metrics': self._calc(nr)}
+	    def run_single(self, pos_s, asset):
+	        pos = pos_s.reindex(self.returns.index).fillna(0)
+	        nr = pos.shift(1) * self.returns[asset] - pos.diff().abs()/2 * self.cost
+	        eq = (1 + nr).cumprod() * self.cap
+	        return {'equity': eq, 'returns': nr, 'metrics': self._calc(nr)}
+	    def _calc(self, r):
+	        r = r.dropna()
+	        if len(r) == 0: return {}
+	        ar = (1 + r).prod() ** (252 / len(r)) - 1
+	        av = r.std() * np.sqrt(252)
+	        dd = (1 + r).cumprod()
+	        mdd = ((dd - dd.cummax()) / dd.cummax()).min()
+	        return {'Ann_Return': ar, 'Volatility': av, 'Sharpe': ar/av if av>0 else 0, 'Max_DD': mdd, 'Calmar': ar/abs(mdd) if mdd!=0 else 0}
+	def plot_results(results_dict):
+	    plt.figure(figsize=(14, 7))
+	    for name, res in results_dict.items():
+	        lw = 2.5 if 'Combined' in name else 1.5
+	        plt.plot(res['equity'], label=name, linewidth=lw)
+	    plt.title('GLM_CTA Strategy Equity Curves (Real Futures Data)', fontsize=16)
+	    plt.ylabel('Equity (Log Scale)'); plt.yscale('log')
+	    plt.legend(); plt.grid(True, alpha=0.3)
+	    plt.tight_layout()
+	    plt.savefig('GLM_CTA_Results.png', dpi=150)
+	    plt.show()
+	'''
+	}
+	def create_zip():
+	    print(f"正在生成 {ZIP_NAME} ...")
+	    with zipfile.ZipFile(ZIP_NAME, 'w', zipfile.ZIP_DEFLATED) as zipf:
+	        for file_path, content in FILE_STRUCTURES.items():
+	            # 将字符串内容编码为字节写入压缩包
+	            zipf.writestr(file_path, content.encode('utf-8'))
+	    abs_path = os.path.abspath(ZIP_NAME)
+	    print("="*50)
+	    print(f"✅ 成功生成压缩包！")
+	    print(f"📍 文件绝对路径: {abs_path}")
+	    print("="*50)
+	    print("请前往该路径找到 ZIP 文件，解压后直接拖入您的 GitHub 仓库即可！")
+	if __name__ == "__main__":
+	    create_zip()
